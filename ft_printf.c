@@ -6,11 +6,11 @@
 /*   By: jinfeld <jinfeld@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/13 17:23:29 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/04/25 18:39:21 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/05/16 22:44:44 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fit_printf.h"
+#include "ft_printf.h"
 
 int		pstr(char *str)
 {
@@ -30,22 +30,12 @@ int		pint(int num)
 int		typeselect(va_list args, char *flag)
 {	
 	int		len;
-	
+	char	c;
 	len = ft_strlen(flag);
-	if (len == 1)
-	{
-		if (ft_strchr("spdiouxXc", *flag))			
-			return (spdiouxXc(args, *flag));	
-		else if (ft_strchr("SDOUC", *flag))			
-			return (lmod(args, *flag));
-	}
-	if (len == 2 && *flag++ = 'l')
-	{
-		if (ft_strchr("sdouXxc", *flag))
-			return (lmod(args, *flag));
-	}
+	
+	c = flag[len - 1];
+	flag[len - 1] = '\0';
 }
-
 //handles all standard conversions
 int		spdiouxXc(va_list args, char flag)
 {
@@ -70,18 +60,34 @@ int		spdiouxXc(va_list args, char flag)
 //handles all lmod type commands
 int		lmod(va_list args, char flag)
 {
-	if (flag == 'S' || 's')
-		return(ft_putstr(va_arg(args, char *)));
-	if (flag == 'D' || 'd')
+	if (flag == 'D' || flag == 'd' || flag == 'i')
 		return(pint(args));
 	if (flag == 'O' || 'o')
 		return(poct(args));
-	if (flag == 'U' || 'o')
+	if (flag == 'U' || 'u')
 		return(punint(args));
 	if (flag == 'X')
-	if (flag == 'x')
+	if (flag == 'x')	
+	if (flag == 'S' || 's')
+		return(ft_putstr(va_arg(args, char *)));
 	if (flag == 'C' || 'c')
 		return(punchr(args));
+}
+
+int		di(va_list args)
+{
+	if (d || i)
+		pint(va_args(args, int), d);
+	if (l)
+		pint(va_arg(args, long), l);
+	if (ll)
+		pint(va_args(args, long long), ll);
+	if (h) 
+		pint(va_args(args, short), h);
+	if (hh)
+		pint(va_args(args, signed char), hh);
+	if (j)
+		pint(va_args(args, intmax_t), j);
 }
 
 //finds the entire conversion/print argument and returns an int to skip over it in the input str "format"
@@ -124,7 +130,6 @@ int		ft_printf(const char *format, ...)
 		}
 		else
 			ft_putchar(format[i]);
-		i++;
 	}
 	va_end(args, format);
 	return (chars);
