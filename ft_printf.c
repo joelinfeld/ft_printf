@@ -26,68 +26,55 @@ int		pint(int num)
 	ft_putstr(str);
 	return ((int)ft_strlen(str));
 }
+int		getmod(char *str)
+{
+	int	mod;
+
+	if (strmatch(str, "ll"))
+		mod = 2;
+	else if (strchr(str, 'l'))
+		mod = 1;
+	else if (strmatch(str, "hh"))
+		mod = 4;
+	else if (strchr(str, 'h'))
+		mod = 3;
+	else if (strchr(str, 'j'))
+		mod = 5;
+	else if (strchr(str, 'z'))
+		mod = 6;
+	else
+		mod = 0;	
+	return (mod);
+}
 //sorts through flag and sends it to sub direction functions
 int		typeselect(va_list args, char *flag)
 {	
 	int		len;
 	char	c;
-	len = ft_strlen(flag);
-	
+	int		mod;
+
+	len = ft_strlen(flag);	
 	c = flag[len - 1];
 	flag[len - 1] = '\0';
-}
-//handles all standard conversions
-int		spdiouxXc(va_list args, char flag)
-{
-	if (flag == 's')
-		return(pstr(va_arg(args, char *)));
-	else if (flag == 'p')
-		return(pvhex(args)); 
-	else if (flag == 'd' || flag == 'i')
-		return(pint(va_arg(args, int)));
-	else if (flag == 'o')
-		return(poct(args));
-	else if (flag == 'u')
-		return(punint(args));
-	else if (flag == 'x')
-		return(phexlow(args));
-	else if (flag == 'X')
-		return(phexup(args));
-	else if (flag == 'c')
-		return(punchr(args));
+	mod = getmod(flag);
 }
 
-//handles all lmod type commands
-int		lmod(va_list args, char flag)
+char	*di(va_list args, char c, int mod)
 {
-	if (flag == 'D' || flag == 'd' || flag == 'i')
-		return(pint(args));
-	if (flag == 'O' || 'o')
-		return(poct(args));
-	if (flag == 'U' || 'u')
-		return(punint(args));
-	if (flag == 'X')
-	if (flag == 'x')	
-	if (flag == 'S' || 's')
-		return(ft_putstr(va_arg(args, char *)));
-	if (flag == 'C' || 'c')
-		return(punchr(args));
-}
+	char	*str;
 
-int		di(va_list args)
-{
-	if (d || i)
-		pint(va_args(args, int), d);
-	if (l)
-		pint(va_arg(args, long), l);
-	if (ll)
-		pint(va_args(args, long long), ll);
-	if (h) 
-		pint(va_args(args, short), h);
-	if (hh)
-		pint(va_args(args, signed char), hh);
-	if (j)
-		pint(va_args(args, intmax_t), j);
+	if (mod = 0 && c != 'D')
+		str = ft_itoa(va_args(args, int));
+	if (mod = 1 || c == 'D')
+		str = ft_itoa(va_arg(args, long));
+	if (mod = 2)
+		str = ft_itoa(va_args(args, long long));
+	if (mod = 3) 
+		str = ft_itoa(va_args(args, short));
+	if (mod = 4)
+		str = ft_itoa(va_args(args, signed char));
+	if (mod = 5)
+		str = ft_itoa(va_args(args, intmax_t));
 }
 
 //finds the entire conversion/print argument and returns an int to skip over it in the input str "format"

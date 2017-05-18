@@ -3,10 +3,4 @@
 # include "libft.h"
 # include <stdarg.h>
 
-typedef	struct		s_flags	
-{
-	char	*flags = "sSpdDioOuUxXcC"
-	void	*content;
-}
-
 #endif 
