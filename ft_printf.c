@@ -46,17 +46,35 @@ int		getmod(char *str)
 		mod = 0;	
 	return (mod);
 }
+char	*conhub(va_list args, char c, int mod)
+{
+	if (strchr("Ddi", c))
+		return (di(args, c, mod));
+	else if (c = 'o')
+		return (o(args, c, mod));
+	else if (c = 'u')
+		return (u(args, c, mod));
+	else if (strchr("Xx", c))
+		return (Xx(args, c, mod));
+	else
+		return (NULL);
+}
+
 //sorts through flag and sends it to sub direction functions
 int		typeselect(va_list args, char *flag)
 {	
 	int		len;
 	char	c;
 	int		mod;
+	char	*format;
+	char	*str;
 
 	len = ft_strlen(flag);	
 	c = flag[len - 1];
 	flag[len - 1] = '\0';
-	mod = getmod(flag);
+	mod = getmod(&flag);
+	format = getformat(flag); //doesn't work yet;
+	str = conhub(args, c, mod);
 }
 
 char	*di(va_list args, char c, int mod)
@@ -70,13 +88,31 @@ char	*di(va_list args, char c, int mod)
 	if (mod = 2)
 		str = ft_itoa(va_args(args, long long));
 	if (mod = 3) 
-		str = ft_itoa(va_args(args, short));
+		str = ft_itoa((short)va_args(args, int));
 	if (mod = 4)
-		str = ft_itoa(va_args(args, signed char));
+		str = ft_itoa((signed char)va_args(args, int));
 	if (mod = 5)
 		str = ft_itoa(va_args(args, intmax_t));
+	return (str);
 }
 
+char	*o(va_list args, char c, int mod)
+{
+	char	*str;
+	if (mod = 0 && c! = 'O')
+		str = ft_itoa_base(va_args(args, unsigned int), 8);
+	if (mod = 1 || c = 'O')
+		str = ft_itoa_base(va_args(args, unsigned long), 8);
+	if (mod = 2)
+		str = ft_itoa_base(va_args(args, unsigned long long), 8);
+	if (mod = 3)
+		str = ft_itoa_base((unsigned short)va_args(args, unsigned int), 8);
+	if (mod = 4)
+		str = ft_itoa_base((unsigned char)va_args(args, unsigned int), 8);
+	if (mod = 5)
+		str = ft_itoa_base(va_args(args, uintmax_t), 8);
+	return (str);
+}
 //finds the entire conversion/print argument and returns an int to skip over it in the input str "format"
 int		flagset(char **flag, char *format)
 {
