@@ -6,7 +6,7 @@
 /*   By: jinfeld <jinfeld@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/13 17:23:29 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/06/20 13:43:29 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/06/20 13:45:39 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ char	*p(va_list args, char c, int mod)
 	char	*str;
 
 	if (mod = 0)
-		str = ft_itoa_base((uintmax_t)va_arg(a, void*), 16, 0);
+		str = ft_itoa_base((uintmax_t)va_arg(args, void*), 16, 0);
 	return (str);
 }
 //finds the entire conversion/print argument and returns an int to skip over it in the input str "format"
