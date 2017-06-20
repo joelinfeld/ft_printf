@@ -1,29 +1,26 @@
-NAME=ft_db
+NAME=libftprintf.a
 CC=gcc
 CFLAGS=-Wall -Wextra -Werror
 
 SRCS=$(wildcard *.c)
+LIBSRCS=$(wildcard libft/*.c)
 OBJS=$(SRCS:%.c=%.o)
-
-LIB_DIR = libft
-LIB_LINK = -L $(LIB_DIR) -lft
-INC = -I libft/includes
+LIBOBJS=libft/$(LIBSRCS:%.c=%.o)
+INC=libft/libft.h
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	make -C $(LIB_DIR)
-	$(CC) $(CFLAGS) $(LIB_LINK) $(OBJS) -o $(NAME)
+$(NAME): $(OBJS) $(LIBOBJS)
+	ar rc $(NAME) $(OBJS) $(LIBOBJS)
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $^
+	$(CC) $(CFLAGS) $(INC) -c $(SRCS) $(LIBSRCS)
 
 clean:
-	make -C $(LIB_DIR) clean
 	-rm -f $(OBJS)
+	-rm -f $(wildcard *.o)
 
 fclean: clean
-	make -C $(LIB_DIR) fclean
 	-rm -f $(NAME)
 
 re: fclean all

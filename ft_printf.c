@@ -6,13 +6,11 @@
 /*   By: jinfeld <jinfeld@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/13 17:23:29 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/06/20 13:45:39 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/06/20 14:08:12 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include <stdarg.h>
-#include <stdio.h>
+#include "ft_printf.h"
 
 int		ft_printf(const char *format,...);
 
@@ -98,7 +96,7 @@ char	*u(va_list args, char c, int mod)
 	return (str);
 }
 
-char	*x(va_list args, char c, int mod)
+char	*x(va_list args, int mod)
 {
 	char	*str;
 	if (mod == 0)
@@ -116,7 +114,7 @@ char	*x(va_list args, char c, int mod)
 	return (str);
 }
 
-char	*X(va_list args, char c, int mod)
+char	*X(va_list args, int mod)
 {
 	char	*str;
 	if (mod == 0)
@@ -157,12 +155,14 @@ char	*ch(va_list args, char c, int mod)
 	return (str);
 }
 
-char	*p(va_list args, char c, int mod)
+char	*p(va_list args, int mod)
 {
 	char	*str;
 
-	if (mod = 0)
+	if (mod == 0)
 		str = ft_itoa_base((uintmax_t)va_arg(args, void*), 16, 0);
+	else
+		str = NULL;
 	return (str);
 }
 //finds the entire conversion/print argument and returns an int to skip over it in the input str "format"
@@ -175,15 +175,15 @@ char	*conhub(va_list args, char c, int mod)
 	else if (ft_strchr("Uu", c))
 		return (u(args, c, mod));
 	else if (c == 'X')
-		return (X(args, c, mod));
+		return (X(args, mod));
 	else if (c == 'x')
-		return (x(args, c, mod));
+		return (x(args, mod));
 	else if (ft_strchr("Ss", c))
 		return(s(args, c, mod));
 	else if (ft_strchr("Cc", c))
 		return(ch(args, c, mod));
 	else if(c == 'p')
-		return(p(args, c, mod));
+		return(p(args, mod));
 	else
 		return (NULL);
 }
@@ -194,7 +194,7 @@ int		typeselect(va_list args, char *flag)
 	int		len;
 	char	c;
 	int		mod;
-	char	*format;
+	//char	*format;
 	char	*str;
 
 	len = ft_strlen(flag);	
