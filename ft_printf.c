@@ -6,7 +6,7 @@
 /*   By: jinfeld <jinfeld@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/13 17:23:29 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/06/19 19:38:19 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/06/20 13:43:29 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,6 +253,7 @@ int		ft_printf(const char *format, ...)
 	return (chars);
 }
 
+/*
 int main(void)
 {
 	int a = 5000;
@@ -265,3 +266,5 @@ int main(void)
 	ft_printf("chartime: %c\n", c);
 	return (0);
 }
+*/
+
