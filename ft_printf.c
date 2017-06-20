@@ -6,7 +6,7 @@
 /*   By: jinfeld <jinfeld@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/13 17:23:29 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/06/19 16:48:47 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/06/19 19:38:19 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,6 @@
 #include <stdio.h>
 
 int		ft_printf(const char *format,...);
-
-/*
-int		pstr(char *str)
-{
-	ft_putstr(str);
-	return ((int)ft_strlen(str));
-}
-
-int		pint(int num)
-{
-	char	*str;
-	
-	str = ft_itoa(num);
-	ft_putstr(str);
-	return ((int)ft_strlen(str));
-}
-*/
 
 int		getmod(char *str)
 {
@@ -97,18 +80,110 @@ char	*o(va_list args, char c, int mod)
 	return (str);
 }
 
+char	*u(va_list args, char c, int mod)
+{
+	char	*str;
+	if (mod == 0 && c != 'U')
+		str = ft_itoa_base(va_arg(args, unsigned int), 10, 1);
+	if (mod == 1 || c == 'U')
+		str = ft_itoa_base(va_arg(args, unsigned long), 10, 1);
+	if (mod == 2)
+		str = ft_itoa_base(va_arg(args, unsigned long long), 10, 1);
+	if (mod == 3)
+		str = ft_itoa_base((unsigned short)va_arg(args, unsigned int), 10, 1);
+	if (mod == 4)
+		str = ft_itoa_base((unsigned char)va_arg(args, unsigned int), 10, 1);
+	if (mod == 5)
+		str = ft_itoa_base(va_arg(args, uintmax_t), 10, 1);
+	return (str);
+}
 
+char	*x(va_list args, char c, int mod)
+{
+	char	*str;
+	if (mod == 0)
+		str = ft_itoa_base(va_arg(args, unsigned int), 16, 0);
+	if (mod == 1)
+		str = ft_itoa_base(va_arg(args, unsigned long), 16, 0);
+	if (mod == 2)
+		str = ft_itoa_base(va_arg(args, unsigned long long), 16, 0);
+	if (mod == 3)
+		str = ft_itoa_base((unsigned short)va_arg(args, unsigned int), 16, 0);
+	if (mod == 4)
+		str = ft_itoa_base((unsigned char)va_arg(args, unsigned int), 16, 0);
+	if (mod == 5)
+		str = ft_itoa_base(va_arg(args, uintmax_t), 16, 0);
+	return (str);
+}
+
+char	*X(va_list args, char c, int mod)
+{
+	char	*str;
+	if (mod == 0)
+		str = ft_itoa_base(va_arg(args, unsigned int), 16, 1);
+	if (mod == 1)
+		str = ft_itoa_base(va_arg(args, unsigned long), 16, 1);
+	if (mod == 2)
+		str = ft_itoa_base(va_arg(args, unsigned long long), 16, 1);
+	if (mod == 3)
+		str = ft_itoa_base((unsigned short)va_arg(args, unsigned int), 16, 1);
+	if (mod == 4)
+		str = ft_itoa_base((unsigned char)va_arg(args, unsigned int), 16, 1);
+	if (mod == 5)
+		str = ft_itoa_base(va_arg(args, uintmax_t), 16, 1);
+	return (str);
+}
+
+char	*s(va_list args, char c, int mod)
+{
+	char	*str;
+	if (mod == 0 && c != 'S')
+		str = va_arg(args, char*);
+	if (mod == 1 || c == 'S')
+		str = (char*)va_arg(args, wchar_t*);
+	return (str);
+}
+
+char	*ch(va_list args, char c, int mod)
+
+{
+	char	*str;
+	
+	str = ft_strnew(1);
+	if (mod == 0 && c != 'C')
+		*str = (char)va_arg(args, unsigned int);
+	if (mod == 1 || c == 'C')
+		*str = (char)va_arg(args, wchar_t);
+	return (str);
+}
+
+char	*p(va_list args, char c, int mod)
+{
+	char	*str;
+
+	if (mod = 0)
+		str = ft_itoa_base((uintmax_t)va_arg(a, void*), 16, 0);
+	return (str);
+}
 //finds the entire conversion/print argument and returns an int to skip over it in the input str "format"
 char	*conhub(va_list args, char c, int mod)
 {
 	if (ft_strchr("Ddi", c))
 		return (di(args, c, mod));
-	else if (c == 'o')
+	else if (ft_strchr("Oo", c))
 		return (o(args, c, mod));
-//	else if (c == 'u')
-//		return (u(args, c, mod));
-//	else if (strchr("Xx", c))
-//		return (Xx(args, c, mod));
+	else if (ft_strchr("Uu", c))
+		return (u(args, c, mod));
+	else if (c == 'X')
+		return (X(args, c, mod));
+	else if (c == 'x')
+		return (x(args, c, mod));
+	else if (ft_strchr("Ss", c))
+		return(s(args, c, mod));
+	else if (ft_strchr("Cc", c))
+		return(ch(args, c, mod));
+	else if(c == 'p')
+		return(p(args, c, mod));
 	else
 		return (NULL);
 }
@@ -166,7 +241,7 @@ int		ft_printf(const char *format, ...)
 	{
 		if (format[i] == '%')
 		{
-			skip = flagset(&flag, (char*)&format[i]);
+			skip = flagset(&flag, (char*)&format[++i]);
 			chars += typeselect(args, flag);
 			i += skip;
 			chars++;
@@ -181,8 +256,12 @@ int		ft_printf(const char *format, ...)
 int main(void)
 {
 	int a = 5000;
+	char *str = "holyballs";
+	char c = 'z';
 //	printf("first test %d", a);
-	ft_printf("first test %d\n dingles\n", a);
-	ft_printf("secondtest %o\n dingles\n", a);
+	ft_printf("first test %lld\n dingles\n", a);
+	ft_printf("secondtest %llo\n dingles\n", a);
+	ft_printf("%s\n", str);
+	ft_printf("chartime: %c\n", c);
 	return (0);
 }
