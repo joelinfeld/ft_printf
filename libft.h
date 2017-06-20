@@ -6,7 +6,7 @@
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 18:23:21 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/06/19 16:42:20 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/06/20 15:02:57 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char				*ft_strmap(char const *s, char (*f)(char));
 size_t				ft_strlcat(char *dst, const char *src, size_t size);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 void				ft_putendl(char const *s);
-char				*ft_itoa(int n);
+char				*ft_itoa(intmax_t n);
 void				ft_putendl_fd(char const *s, int fd);
 void				ft_strclr(char *s);
 void				*ft_memmove(void *dst, const void *src, size_t len);
