@@ -6,13 +6,13 @@
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 16:40:37 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/01/19 15:57:09 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/06/20 14:58:24 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	digits(long n)
+static int	digits(intmax_t n)
 {
 	int	dig;
 
@@ -32,14 +32,12 @@ static int	digits(long n)
 	return (dig);
 }
 
-char		*ft_itoa(int n)
+char		*ft_itoa(intmax_t n)
 {
 	int		dig;
 	char	*res;
-	long	nb;
 
-	nb = n;
-	dig = digits(nb);
+	dig = digits(n);
 	if (!(res = (char *)malloc(sizeof(char) * dig + 1)))
 		return (NULL);
 	res[dig] = '\0';
