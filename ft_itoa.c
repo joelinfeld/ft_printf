@@ -6,7 +6,7 @@
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 16:40:37 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/06/20 14:58:24 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/06/20 15:01:03 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,16 @@ char		*ft_itoa(intmax_t n)
 	if (!(res = (char *)malloc(sizeof(char) * dig + 1)))
 		return (NULL);
 	res[dig] = '\0';
-	if (nb < 0)
+	if (n < 0)
 	{
-		nb *= -1;
+		n *= -1;
 		res[0] = '-';
 	}
-	while (nb >= 10)
+	while (n >= 10)
 	{
-		res[--dig] = nb % 10 + '0';
-		nb /= 10;
+		res[--dig] = n % 10 + '0';
+		n /= 10;
 	}
-	res[--dig] = nb + '0';
+	res[--dig] = n + '0';
 	return (res);
 }
