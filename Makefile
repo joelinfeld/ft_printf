@@ -3,22 +3,18 @@ CC=gcc
 CFLAGS=-Wall -Wextra -Werror
 
 SRCS=$(wildcard *.c)
-LIBSRCS=$(wildcard libft/*.c)
 OBJS=$(SRCS:%.c=%.o)
-LIBOBJS=libft/$(LIBSRCS:%.c=%.o)
-INC=libft/libft.h
 
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBOBJS)
-	ar rc $(NAME) $(OBJS) $(LIBOBJS)
+	ar rc $(NAME) $(OBJS) 
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(INC) -c $(SRCS) $(LIBSRCS)
+	$(CC) $(CFLAGS) -c $(SRCS)
 
 clean:
 	-rm -f $(OBJS)
-	-rm -f $(wildcard *.o)
 
 fclean: clean
 	-rm -f $(NAME)
