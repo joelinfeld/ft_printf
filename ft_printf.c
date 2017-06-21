@@ -6,7 +6,7 @@
 /*   By: jinfeld <jinfeld@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/13 17:23:29 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/06/20 14:08:12 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/06/21 16:57:46 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,136 +35,57 @@ int		getmod(char *str)
 	return (mod);
 }
 
-void	toprint(char *str)
+char	*getformat(char **str)
 {
+	char	*ret;
+	int		i;
+
+	ret = ft_strdup(*str);
+	i = -1;
+	if (*str == '+' || *str == '-' || *str == '#' || *str == '0' || *str == ' ')
+	{
+		while (*str[++i])
+		{
+			if (*str[i] == 'l' || *str[i] == 'h' || *str[i] == 'j' || *str[i] == 'z')
+			{
+				*str += i;
+				break ;
+			}
+		}
+	}
+	ret[i] = '\0'; 
+	return (ret);
+}
+
+void	toprint(char *str, char c, int mod, char *format)
+{
+	int i;
+	if (flag.space && !flag.plus)
+		ft_putchar(' ');
+	if (flag.plus && str[0] != '-')
+		ft_putchar('+');
+	if (flag.octothorpe = 1)
+	{
+		if (flag.c == 'x')
+			ft_putstr("0x");
+		if (flag.c == 'X')
+			ft_putstr("0X");
+	}
+	if (flag.zero && !flag.minus)
+	{
+		i = -1;
+		while(++i < flag.zero)
+			ft_putchar('0');
+	}
 	ft_putstr(str);
+	if (flag.minus)
+	{
+		i = -1;
+		while(++i < flag.minus)
+			ft_putchar(' ');
+	}
 }
 
-char	*di(va_list args, char c, int mod)
-{
-	char	*str;
-
-	if (mod == 0 && c != 'D')
-		str = ft_itoa(va_arg(args, int));
-	if (mod == 1 || c == 'D')
-		str = ft_itoa(va_arg(args, long));
-	if (mod == 2)
-		str = ft_itoa(va_arg(args, long long));
-	if (mod == 3) 
-		str = ft_itoa((short)va_arg(args, int));
-	if (mod == 4)
-		str = ft_itoa((signed char)va_arg(args, int));
-	if (mod == 5)
-		str = ft_itoa(va_arg(args, intmax_t));
-	return (str);
-}
-
-
-char	*o(va_list args, char c, int mod)
-{
-	char	*str;
-	if (mod == 0 && c != 'O')
-		str = ft_itoa_base(va_arg(args, unsigned int), 8, 1);
-	if (mod == 1 || c == 'O')
-		str = ft_itoa_base(va_arg(args, unsigned long), 8, 1);
-	if (mod == 2)
-		str = ft_itoa_base(va_arg(args, unsigned long long), 8, 1);
-	if (mod == 3)
-		str = ft_itoa_base((unsigned short)va_arg(args, unsigned int), 8, 1);
-	if (mod == 4)
-		str = ft_itoa_base((unsigned char)va_arg(args, unsigned int), 8, 1);
-	if (mod == 5)
-		str = ft_itoa_base(va_arg(args, uintmax_t), 8, 1);
-	return (str);
-}
-
-char	*u(va_list args, char c, int mod)
-{
-	char	*str;
-	if (mod == 0 && c != 'U')
-		str = ft_itoa_base(va_arg(args, unsigned int), 10, 1);
-	if (mod == 1 || c == 'U')
-		str = ft_itoa_base(va_arg(args, unsigned long), 10, 1);
-	if (mod == 2)
-		str = ft_itoa_base(va_arg(args, unsigned long long), 10, 1);
-	if (mod == 3)
-		str = ft_itoa_base((unsigned short)va_arg(args, unsigned int), 10, 1);
-	if (mod == 4)
-		str = ft_itoa_base((unsigned char)va_arg(args, unsigned int), 10, 1);
-	if (mod == 5)
-		str = ft_itoa_base(va_arg(args, uintmax_t), 10, 1);
-	return (str);
-}
-
-char	*x(va_list args, int mod)
-{
-	char	*str;
-	if (mod == 0)
-		str = ft_itoa_base(va_arg(args, unsigned int), 16, 0);
-	if (mod == 1)
-		str = ft_itoa_base(va_arg(args, unsigned long), 16, 0);
-	if (mod == 2)
-		str = ft_itoa_base(va_arg(args, unsigned long long), 16, 0);
-	if (mod == 3)
-		str = ft_itoa_base((unsigned short)va_arg(args, unsigned int), 16, 0);
-	if (mod == 4)
-		str = ft_itoa_base((unsigned char)va_arg(args, unsigned int), 16, 0);
-	if (mod == 5)
-		str = ft_itoa_base(va_arg(args, uintmax_t), 16, 0);
-	return (str);
-}
-
-char	*X(va_list args, int mod)
-{
-	char	*str;
-	if (mod == 0)
-		str = ft_itoa_base(va_arg(args, unsigned int), 16, 1);
-	if (mod == 1)
-		str = ft_itoa_base(va_arg(args, unsigned long), 16, 1);
-	if (mod == 2)
-		str = ft_itoa_base(va_arg(args, unsigned long long), 16, 1);
-	if (mod == 3)
-		str = ft_itoa_base((unsigned short)va_arg(args, unsigned int), 16, 1);
-	if (mod == 4)
-		str = ft_itoa_base((unsigned char)va_arg(args, unsigned int), 16, 1);
-	if (mod == 5)
-		str = ft_itoa_base(va_arg(args, uintmax_t), 16, 1);
-	return (str);
-}
-
-char	*s(va_list args, char c, int mod)
-{
-	char	*str;
-	if (mod == 0 && c != 'S')
-		str = va_arg(args, char*);
-	if (mod == 1 || c == 'S')
-		str = (char*)va_arg(args, wchar_t*);
-	return (str);
-}
-
-char	*ch(va_list args, char c, int mod)
-
-{
-	char	*str;
-	
-	str = ft_strnew(1);
-	if (mod == 0 && c != 'C')
-		*str = (char)va_arg(args, unsigned int);
-	if (mod == 1 || c == 'C')
-		*str = (char)va_arg(args, wchar_t);
-	return (str);
-}
-
-char	*p(va_list args, int mod)
-{
-	char	*str;
-
-	if (mod == 0)
-		str = ft_itoa_base((uintmax_t)va_arg(args, void*), 16, 0);
-	else
-		str = NULL;
-	return (str);
-}
 //finds the entire conversion/print argument and returns an int to skip over it in the input str "format"
 char	*conhub(va_list args, char c, int mod)
 {
@@ -194,20 +115,20 @@ int		typeselect(va_list args, char *flag)
 	int		len;
 	char	c;
 	int		mod;
-	//char	*format;
+	char	*format;
 	char	*str;
 
-	len = ft_strlen(flag);	
-	c = flag[len - 1];
-	flag[len - 1] = '\0';
-	mod = getmod(flag);
-	//format = getformat(flag); //doesn't work yet;
-	str = conhub(args, c, mod);
+	len = ft_strlen(flag.str);	
+	flag.c = flag.str[len - 1];
+	flag.str[len - 1] = '\0';
+	format = getformat(flag); //doesn't work yet;
+	flag.mod = getmod(flag.str);
+	flag.str = conhub(args, flag);
 	toprint(str);
 	return((int)ft_strlen(str));
 }
 
-int		flagset(char **flag, char *format)
+int		flagset(t_flag flag, char *format)
 {
 	int		i;
 	char	*cpy;
@@ -219,7 +140,7 @@ int		flagset(char **flag, char *format)
 		{
 			cpy = ft_strdup(format);
 			cpy[i + 1]= '\0';
-			*flag = ft_strdup(cpy);
+			flag.str = ft_strdup(cpy);
 			break ;
 		}
 	}
@@ -229,7 +150,7 @@ int		flagset(char **flag, char *format)
 int		ft_printf(const char *format, ...)
 {
 	va_list		args;
-	char		*flag;
+	t_flag		flag;
 	int			skip;
 	int			chars;
 	int			i;
@@ -241,7 +162,7 @@ int		ft_printf(const char *format, ...)
 	{
 		if (format[i] == '%')
 		{
-			skip = flagset(&flag, (char*)&format[++i]);
+			skip = flagset(flag, (char*)&format[++i]);
 			chars += typeselect(args, flag);
 			i += skip;
 			chars++;
