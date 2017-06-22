@@ -6,13 +6,11 @@
 /*   By: jinfeld <jinfeld@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/13 17:23:29 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/06/21 16:57:46 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/06/21 18:51:05 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int		ft_printf(const char *format,...);
 
 int		getmod(char *str)
 {
@@ -35,7 +33,7 @@ int		getmod(char *str)
 	return (mod);
 }
 
-char	*getformat(char **str)
+void	getformat(char **str)
 {
 	char	*ret;
 	int		i;
@@ -110,25 +108,30 @@ char	*conhub(va_list args, char c, int mod)
 }
 
 //sorts through flag and sends it to sub direction functions
-int		typeselect(va_list args, char *flag)
+int		typeselect(va_list args, char *str)
 {	
 	int		len;
 	char	c;
 	int		mod;
-	char	*format;
-	char	*str;
+	char	*cp;
+	t_flag	flag;
 
-	len = ft_strlen(flag.str);	
-	flag.c = flag.str[len - 1];
-	flag.str[len - 1] = '\0';
-	format = getformat(flag); //doesn't work yet;
+	cp = ft_strdup(str)
+	len = ft_strlen(str);	
+	flag.c = str[len - 1];
+	str[len - 1] = '\0';
+	ft_strdel(&flag.str);
+	cp = ft_strdup(str);
+	ft_strdel(&str);
+	getformat(cp, flag); //doesn't work yet;
 	flag.mod = getmod(flag.str);
+	ft_strdel(flag.str);
 	flag.str = conhub(args, flag);
-	toprint(str);
+	toprint(flag);
 	return((int)ft_strlen(str));
 }
 
-int		flagset(t_flag flag, char *format)
+int		flagset(char *str, char *format)
 {
 	int		i;
 	char	*cpy;
@@ -140,7 +143,7 @@ int		flagset(t_flag flag, char *format)
 		{
 			cpy = ft_strdup(format);
 			cpy[i + 1]= '\0';
-			flag.str = ft_strdup(cpy);
+			*str = ft_strdup(cpy);
 			break ;
 		}
 	}
@@ -150,7 +153,7 @@ int		flagset(t_flag flag, char *format)
 int		ft_printf(const char *format, ...)
 {
 	va_list		args;
-	t_flag		flag;
+	char		*str;
 	int			skip;
 	int			chars;
 	int			i;
@@ -162,8 +165,8 @@ int		ft_printf(const char *format, ...)
 	{
 		if (format[i] == '%')
 		{
-			skip = flagset(flag, (char*)&format[++i]);
-			chars += typeselect(args, flag);
+			skip = flagset(&str, (char*)&format[++i]);
+			chars += typeselect(args, str);
 			i += skip;
 			chars++;
 		}
