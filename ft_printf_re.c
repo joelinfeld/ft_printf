@@ -120,6 +120,7 @@ int		typeselect(va_list args, char *str)
 	getmod(str, &flag);
 	flag.str = conhub(args, flag.c, flag.mod);
 	toprint(flag);
+	return (0);
 }
 int		findflag(char **str, char *format)
 {
