@@ -5,12 +5,12 @@
 
 typedef struct	s_flag
 {
-	int			mod = 0;
-	int			octothorpe = 0;
-	int			zero = 0;
-	int			minus = 0;
-	int			plus = 0;
-	int			space = 0;
+	int			mod;
+	int			octothorpe;
+	int			zero;
+	int			minus;
+	int			plus;
+	int			space;
 	char 		c;
 	char		*str;
 }				t_flag;

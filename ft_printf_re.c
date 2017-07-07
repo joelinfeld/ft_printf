@@ -112,7 +112,8 @@ int		typeselect(va_list args, char *str)
 {
 	t_flag	flag;
 	int		len;
-
+	
+	flag.mod, flag.octothorpe, flag.zero, flag.minus, flag.plus, flag.space = 0;
 	len = ft_strlen(str);
 	flag.c = str[len - 1];
 	str[len - 1] = '\0';
