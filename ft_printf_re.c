@@ -118,7 +118,7 @@ int		typeselect(va_list args, char *str)
 	flag.c = str[len - 1];
 	str[len - 1] = '\0';
 	getformat(&str, &flag);
-	getmod(str, &flag);
+	getmod(&flag, str);
 	flag.str = conhub(args, flag.c, flag.mod);
 	toprint(flag);
 	return (0);
