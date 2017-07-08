@@ -5,7 +5,7 @@ void	toprint(t_flag flag)
 	int i;
 	if (flag.space && !flag.plus)
 		ft_putchar(' ');
-	if (flag.plus && str[0] != '-')
+	if (flag.plus && flag.str[0] != '-')
 		ft_putchar('+');
 	if (flag.octothorpe = 1)
 	{
@@ -20,7 +20,7 @@ void	toprint(t_flag flag)
 		while(++i < flag.zero)
 			ft_putchar('0');
 	}
-	ft_putstr(str);
+	ft_putstr(flag.str);
 	if (flag.minus)
 	{
 		i = -1;
@@ -81,7 +81,7 @@ void	flagparse(t_flag *flag, char *str)
 		if (str[i] == '-')
 			flag->minus = ft_atoi(&str[i]);
 		if (str[i] == '#')
-			flag->octo = ft_atoi(&str[i]);
+			flag->octothorpe = ft_atoi(&str[i]);
 		if (str[i] == '0')
 			flag->zero = ft_atoi(&str[i]);
 		if (str[i] == ' ')
@@ -105,7 +105,7 @@ void	getformat(char **str, t_flag *flag)
 	flagstr = ft_strdup(*str);
 	flagstr[i] = '\0';
 	*str += i;
-	flagparse(t_flag *flag, char *flagstr);
+	flagparse(flag, flagstr);
 }
 
 int		typeselect(va_list args, char *str)
@@ -147,6 +147,7 @@ int		ft_printf(const char *format, ...)
 	va_list	args;
 	char	*str;
 	int		i;
+	int		skip;
 
 	i = -1;
 	while (format[++i])
@@ -161,5 +162,5 @@ int		ft_printf(const char *format, ...)
 			ft_putchar(format[i]);
 	}
 	va_end(args);
-	return (chars);
+	return (0);
 }

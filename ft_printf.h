@@ -22,6 +22,6 @@ char			*x(va_list args, int mod);
 char			*X(va_list args, int mod);
 char			*c(va_list args, char c, int mod);
 char			*s(va_list args, char c, int mod);
-char			*p(va_list args, char c, int mod);
+char			*p(va_list args, int mod);
 
 #endif 
