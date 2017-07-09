@@ -1,7 +1,8 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
-# include "libft/libft.h"
+# include "libft.h"
 # include <stdarg.h>
+# include <stdint.h>
 
 typedef struct	s_flag
 {
@@ -20,7 +21,7 @@ char			*o(va_list args, char c, int mod);
 char			*u(va_list args, char c, int mod);
 char			*x(va_list args, int mod);
 char			*X(va_list args, int mod);
-char			*c(va_list args, char c, int mod);
+char			*ch(va_list args, char c, int mod);
 char			*s(va_list args, char c, int mod);
 char			*p(va_list args, int mod);
 

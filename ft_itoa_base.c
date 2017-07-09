@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdint.h>
 
 static int	digits(uintmax_t n, int base)
 {

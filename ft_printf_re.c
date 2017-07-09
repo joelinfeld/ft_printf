@@ -7,7 +7,7 @@ void	toprint(t_flag flag)
 		ft_putchar(' ');
 	if (flag.plus && flag.str[0] != '-')
 		ft_putchar('+');
-	if (flag.octothorpe = 1)
+	if (flag.octothorpe == 1)
 	{
 		if (flag.c == 'x')
 			ft_putstr("0x");
@@ -44,9 +44,9 @@ char	*conhub(va_list args, char c, int mod)
 	else if (ft_strchr("Ss", c))
 		return(s(args, c, mod));
 	else if (ft_strchr("Cc", c))
-		return(ch(args, c, mod));
-	else if(c == 'p')
-		return(p(args, mod));
+		return (ch(args, c, mod));
+	else if (c == 'p')
+		return (p(args, mod));
 	else
 		return (NULL);
 }
@@ -111,9 +111,14 @@ void	getformat(char **str, t_flag *flag)
 int		typeselect(va_list args, char *str)
 {
 	t_flag	flag;
-	int		len;
+	int		len;	
 	
-	flag.mod, flag.octothorpe, flag.zero, flag.minus, flag.plus, flag.space = 0;
+	flag.mod = 0;
+	flag.octothorpe = 0;
+	flag.zero = 0;
+	flag.minus = 0;
+	flag.plus = 0;
+	flag.space = 0;
 	len = ft_strlen(str);
 	flag.c = str[len - 1];
 	str[len - 1] = '\0';

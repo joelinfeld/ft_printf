@@ -1,5 +1,5 @@
 NAME=libftprintf.a
-CC=gcc
+CC=clang
 CFLAGS=-Wall -Wextra -Werror
 
 SRCS=$(wildcard *.c)
