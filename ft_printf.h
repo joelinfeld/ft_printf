@@ -6,6 +6,7 @@
 
 typedef struct	s_flag
 {
+	int			marg;
 	int			mod;
 	int			octothorpe;
 	int			zero;

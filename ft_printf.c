@@ -1,32 +1,61 @@
 #include "ft_printf.h"
+#include <stdio.h>
 
-void	toprint(t_flag flag)
+int		toprint(t_flag flag)
 {
 	int i;
+	int chars;
+	int	len;
+
+	len = ft_strlen(flag.str);
+	chars = 0;
 	if (flag.space && !flag.plus)
+	{
 		ft_putchar(' ');
+		//chars += 1;
+	}
+
 	if (flag.plus && flag.str[0] != '-')
+	{
 		ft_putchar('+');
+		chars += 1;
+	}
+	/*
+	if (flag.marg && !flag.minus && !flag.zero)
+	{
+		while(++i < flag.space)
+	}
+	*/
 	if (flag.octothorpe == 1)
 	{
 		if (flag.c == 'x')
 			ft_putstr("0x");
 		if (flag.c == 'X')
 			ft_putstr("0X");
+		chars += 2;
 	}
 	if (flag.zero && !flag.minus)
 	{
 		i = -1;
 		while(++i < flag.zero)
+		{
 			ft_putchar('0');
+			chars += 1;
+		}
 	}
 	ft_putstr(flag.str);
+	chars += len;
 	if (flag.minus)
 	{
-		i = -1;
-		while(++i < flag.minus)
+		i = 0;
+		while(++i <= flag.minus - len)
+		{
 			ft_putchar(' ');
+			chars += 1;
+		}
+
 	}
+	return (chars);
 }
 
 char	*conhub(va_list args, char c, int mod)
@@ -40,13 +69,17 @@ char	*conhub(va_list args, char c, int mod)
 	else if (c == 'X')
 		return (X(args, mod));
 	else if (c == 'x')
+	{
 		return (x(args, mod));
+	}
 	else if (ft_strchr("Ss", c))
 		return(s(args, c, mod));
 	else if (ft_strchr("Cc", c))
 		return (ch(args, c, mod));
 	else if (c == 'p')
 		return (p(args, mod));
+	else if (c == '%')
+		return ("%");
 	else
 		return (NULL);
 }
@@ -76,15 +109,21 @@ void	flagparse(t_flag *flag, char *str)
 	i = -1;
 	while (str[++i])
 	{
+		/*
+		if (str[i] >= '0' && str[i] <= '9')
+			flag->marg = ft_atoi(&str[i]);
+			*/
 		if (str[i] == '+')
 			flag->plus = 1;
 		if (str[i] == '-')
-			flag->minus = ft_atoi(&str[i]);
+		{
+			flag->minus = ft_atoi(&str[i + 1]);
+		}
 		if (str[i] == '#')
-			flag->octothorpe = ft_atoi(&str[i]);
+			flag->octothorpe = ft_atoi(&str[i + 1]);
 		if (str[i] == '0')
-			flag->zero = ft_atoi(&str[i]);
-		if (str[i] == ' ')
+			flag->zero = ft_atoi(&str[i + 1]);
+		if (str[i] == ' ' && str[i + 1] != ' ')
 			flag->space = 1;
 	}
 }
@@ -95,12 +134,10 @@ void	getformat(char **str, t_flag *flag)
 	char	*flagstr;
 
 	i = -1;
-	while (*str[++i])
+	while (str[0][++i])
 	{
-		if (*str[i] == 'l' || *str[i] == 'h' || *str[i] == 'j' || *str[i] == 'z')
-		{
+		if (str[0][i] == 'l' || str[0][i] == 'h' || str[0][i] == 'j' || str[0][i] == 'z')
 			break ;
-		}
 	}
 	flagstr = ft_strdup(*str);
 	flagstr[i] = '\0';
@@ -119,14 +156,14 @@ int		typeselect(va_list args, char *str)
 	flag.minus = 0;
 	flag.plus = 0;
 	flag.space = 0;
+	flag.marg = 0;
 	len = ft_strlen(str);
 	flag.c = str[len - 1];
 	str[len - 1] = '\0';
 	getformat(&str, &flag);
 	getmod(&flag, str);
 	flag.str = conhub(args, flag.c, flag.mod);
-	toprint(flag);
-	return (0);
+	return(toprint(flag));
 }
 int		findflag(char **str, char *format)
 {
@@ -136,7 +173,7 @@ int		findflag(char **str, char *format)
 	i = -1;
 	while (format[++i])
 	{
-		if (ft_strchr("spdiouxXcSDOUxC", format[i]))
+		if (ft_strchr("spdiouxXcSDOUxC%", format[i]))
 		{
 			cpy = ft_strdup(format);
 			cpy[i + 1] = '\0';
@@ -153,19 +190,34 @@ int		ft_printf(const char *format, ...)
 	char	*str;
 	int		i;
 	int		skip;
-
+	int		chars;
+	
+	va_start(args, format);
+	chars = 0;
 	i = -1;
 	while (format[++i])
 	{
 		if (format[i] == '%')
 		{
 			skip = findflag(&str, (char*)&format[++i]);
-			typeselect(args, str);
+			chars += typeselect(args, str);
 			i += skip;
 		}
 		else if (format[i])
+		{
 			ft_putchar(format[i]);
+			chars += 1;
+		}
 	}
 	va_end(args);
+	return (chars);
+}
+
+/*
+int		main(void)
+{
+	int a = 42;
+	ft_printf("%x\n", a);
 	return (0);
 }
+*/
