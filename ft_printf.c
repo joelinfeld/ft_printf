@@ -1,6 +1,12 @@
 #include "ft_printf.h"
 #include <stdio.h>
 
+char				*ft_itoa_base(uintmax_t n, int base, int caseflag);
+void	numbers(t_flag flag)
+{
+	printf("marg: %d\nmod: %d\nocto: %d\nzero: %d\nminus: %d\nplus: %d\nspace: %d\n",
+	flag.marg, flag.mod, flag.octothorpe, flag.zero, flag.minus, flag.plus, flag.space);
+}
 int		toprint(t_flag flag)
 {
 	int i;
@@ -8,25 +14,37 @@ int		toprint(t_flag flag)
 	int	len;
 
 	len = ft_strlen(flag.str);
-	chars = 0;
+	chars = len;
+	if (flag.octothorpe == 1 && flag.str[0] != '0')
+		len += 2;
+	//test funcs
+	//numbers(flag);
+	//printf("len: %d\n", len);
+	if (flag.c == '%')
+	{
+		ft_putchar('%');
+		return (chars);
+	}
 	if (flag.space && !flag.plus)
 	{
 		ft_putchar(' ');
-		//chars += 1;
+		chars += 1;
 	}
-
 	if (flag.plus && flag.str[0] != '-')
 	{
 		ft_putchar('+');
 		chars += 1;
 	}
-	/*
-	if (flag.marg && !flag.minus && !flag.zero)
+	if (flag.marg)
 	{
-		while(++i < flag.space)
+		i = 0;
+		while(++i <= flag.marg - len)
+		{
+			ft_putchar(' ');
+			chars += 1;
+		}
 	}
-	*/
-	if (flag.octothorpe == 1)
+	if (flag.octothorpe == 1 && flag.str[0] != '0')
 	{
 		if (flag.c == 'x')
 			ft_putstr("0x");
@@ -36,15 +54,14 @@ int		toprint(t_flag flag)
 	}
 	if (flag.zero && !flag.minus)
 	{
-		i = -1;
-		while(++i < flag.zero)
+		i = 0;
+		while(++i <= flag.zero - len)
 		{
 			ft_putchar('0');
 			chars += 1;
 		}
 	}
 	ft_putstr(flag.str);
-	chars += len;
 	if (flag.minus)
 	{
 		i = 0;
@@ -105,26 +122,43 @@ void	getmod(t_flag *flag, char *str)
 void	flagparse(t_flag *flag, char *str)
 {
 	int	i;
-
+	int cur;
+	
+	cur = 0;
 	i = -1;
+	//test str
+	//printf("string: %s\n", str);
 	while (str[++i])
 	{
-		/*
-		if (str[i] >= '0' && str[i] <= '9')
+		if (str[i] > '0' && str[i] <= '9' && cur == 0)
+		{
 			flag->marg = ft_atoi(&str[i]);
-			*/
+			cur = 1;
+		}
 		if (str[i] == '+')
+		{
 			flag->plus = 1;
+			cur = 1;
+		}
 		if (str[i] == '-')
 		{
 			flag->minus = ft_atoi(&str[i + 1]);
+			cur = 1;
 		}
 		if (str[i] == '#')
-			flag->octothorpe = ft_atoi(&str[i + 1]);
-		if (str[i] == '0')
+		{
+			flag->octothorpe = 1;
+		}
+		if (str[i] == '0' && cur == 0)
+		{
 			flag->zero = ft_atoi(&str[i + 1]);
+			cur = 1;
+		}
 		if (str[i] == ' ' && str[i + 1] != ' ')
+		{
 			flag->space = 1;
+			cur = 1;
+		}
 	}
 }
 
@@ -216,8 +250,7 @@ int		ft_printf(const char *format, ...)
 /*
 int		main(void)
 {
-	int a = 42;
-	ft_printf("%x\n", a);
+	ft_printf("%#x", 42);
 	return (0);
 }
 */
