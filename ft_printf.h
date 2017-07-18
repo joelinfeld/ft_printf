@@ -13,6 +13,7 @@ typedef struct	s_flag
 	int			minus;
 	int			plus;
 	int			space;
+	int			precision;
 	char 		c;
 	char		*str;
 }				t_flag;

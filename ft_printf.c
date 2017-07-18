@@ -25,7 +25,7 @@ int		toprint(t_flag flag)
 		ft_putchar('%');
 		return (chars);
 	}
-	if (flag.space && !flag.plus)
+	if (flag.space && !flag.plus && ft_atoi(flag.str) >= 0 && flag.str)
 	{
 		ft_putchar(' ');
 		chars += 1;
@@ -42,6 +42,27 @@ int		toprint(t_flag flag)
 		{
 			ft_putchar(' ');
 			chars += 1;
+		}
+	}
+	if (flag.precision >= 0  && flag.str && ft_strlen(flag.str) > 0)
+	{
+		if (flag.c == 's')
+		{
+			flag.str[flag.precision] = '\0';
+			chars -= (len - flag.precision);
+			len -= (len - flag.precision);
+		}
+		else
+		{
+			if (flag.precision > len)
+			{
+				i = 0;
+				while (++i <= flag.precision - len)
+				{
+					ft_putchar('0');
+					++chars;
+				}
+			}
 		}
 	}
 	if (flag.octothorpe == 1 && flag.str[0] != '0')
@@ -72,6 +93,8 @@ int		toprint(t_flag flag)
 		}
 
 	}
+	if (flag.str == NULL)
+		chars = 0;
 	return (chars);
 }
 
@@ -159,6 +182,11 @@ void	flagparse(t_flag *flag, char *str)
 			flag->space = 1;
 			cur = 1;
 		}
+		if (str[i] == '.')
+		{
+			flag->precision = ft_atoi(&str[i + 1]);
+			cur = 1;
+		}
 	}
 }
 
@@ -191,6 +219,8 @@ int		typeselect(va_list args, char *str)
 	flag.plus = 0;
 	flag.space = 0;
 	flag.marg = 0;
+	//temporary precision set, will probably need a boolean
+	flag.precision = -1;
 	len = ft_strlen(str);
 	flag.c = str[len - 1];
 	str[len - 1] = '\0';
