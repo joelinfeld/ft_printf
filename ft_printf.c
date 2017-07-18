@@ -7,6 +7,64 @@ void	numbers(t_flag flag)
 	printf("marg: %d\nmod: %d\nocto: %d\nzero: %d\nminus: %d\nplus: %d\nspace: %d\n",
 	flag.marg, flag.mod, flag.octothorpe, flag.zero, flag.minus, flag.plus, flag.space);
 }
+
+int		leftpad(t_flag flag)
+{
+	int i;
+
+	i = 0;
+	if (flag.zero && !flag.minus && !flag.precision)
+	{
+		
+	}
+		
+}
+int		printlen(t_flag *flag)
+{
+	int	len;
+	char *str;
+	int	i;
+
+	len = ft_strlen(t_flag->str)
+	if (flag->precision && flag.c = 's')
+	{
+		if (flag->precision < len)
+		{
+			flag->str[precision] = '\0';
+			len = flag->precision;
+		}
+	}
+	else
+	{
+		if (flag->precision > len)
+		{
+			i = -1;
+			str = ft_strnew(len + flag->precision - 1);
+			while (++i < flag->precision - len)
+				str[i] = '0';
+			while (++i < flag->precision);
+				str[i] = flag->str[i - flag->precision - len];
+			len = flag->precision;
+			ft_strdel(&flag->str);
+			flag->str = ft_strdup(str);
+			ft_strdel(&str);
+		}
+	}
+	return (len);
+}
+int		demprintz(t_flag flag)
+{
+	int len;
+	int chars;
+
+	chars = 0;
+	len = printlen(t_flag *flag);
+	chars += leftpad(t_flag flag, &len);
+	ft_putstr(flag.str);
+	chars += rightpad(t_flag flag, &len);
+	return (chars);
+}
+
 int		toprint(t_flag flag)
 {
 	int i;
