@@ -15,6 +15,11 @@ int		leftpad(t_flag flag, int len)
 	
 	chars = 0;
 	i = 0;
+	if (flag.space && !flag.marg && !flag.plus && ft_atoi(flag.str) >= 0 && !(flag.c == 'c' && ft_atoi(flag.str) == 0))
+	{
+		ft_putchar(' ');
+		chars += 1;
+	}
 	if (flag.marg)
 	{
 		i = 0;
@@ -33,19 +38,35 @@ int		leftpad(t_flag flag, int len)
 		if (flag.c == 'o')
 			ft_putchar('0');
 	}
-	if (flag.zero && !flag.minus && flag.precision == -10000)
-	{
-		i = 0;
-		while(++i <= flag.zero - len)
-		{
-			ft_putchar('0');
-			chars += 1;
-		}
-	}
-	if (flag.plus && flag.str[0] != '-')
+	if (flag.plus && flag.str[0] != '-' && (flag.c == 'd' || flag.c == 'D' || flag.c == 'i'))
 	{
 		ft_putchar('+');
 		chars += 1;
+		len += 1;
+	}
+	if (flag.str[0] == '-')
+	{
+		ft_putchar('-');
+	}
+	if (flag.zero && !flag.minus)
+	{
+		i = 0;
+		if (flag.precision != -10000)
+		{
+			while(++i <= flag.zero -len)
+			{
+				ft_putchar(' ');
+				chars += 1;
+			}
+		}
+		else
+		{
+			while(++i <= flag.zero - len)
+			{
+				ft_putchar('0');
+				chars += 1;
+			}
+		}
 	}
 	return (chars);
 }
@@ -136,7 +157,10 @@ int		demprintz(t_flag flag)
 	}
 	len = printlen(&flag);
 	chars += leftpad(flag, len);
-	ft_putstr(flag.str);
+	if (flag.str[0] == '-')
+		ft_putstr(&flag.str[1]);
+	else
+		ft_putstr(flag.str);
 	chars += rightpad(flag, len);
 	chars += len;
 	return (chars);
@@ -243,7 +267,8 @@ void	flagparse(t_flag *flag, char *str)
 {
 	int	i;
 	int cur;
-	
+	int hold;
+
 	cur = 0;
 	i = -1;
 	//test str
@@ -258,12 +283,20 @@ void	flagparse(t_flag *flag, char *str)
 		if (str[i] == '+')
 		{
 			flag->plus = 1;
-			cur = 1;
 		}
 		if (str[i] == '-')
 		{
-			flag->minus = ft_atoi(&str[i + 1]);
+			hold = i;
+			while (str[++i])
+			{
+				if (str[i] >= '0' && str[i] <= '9')
+				{
+					flag->minus = ft_atoi(&str[i]);
+					break ;
+				}
+			}
 			cur = 1;
+			i = hold;
 		}
 		if (str[i] == '#')
 		{
@@ -277,7 +310,6 @@ void	flagparse(t_flag *flag, char *str)
 		if (str[i] == ' ' && str[i + 1] != ' ')
 		{
 			flag->space = 1;
-			cur = 1;
 		}
 		if (str[i] == '.')
 		{
