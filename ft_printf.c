@@ -10,7 +10,7 @@ void	numbers(t_flag flag)
 
 void	printocto(t_flag flag)
 {
-	if (flag.c == 'x')
+	if (flag.c == 'x' || flag.c == 'p')
 		ft_putstr("0x");
 	if (flag.c == 'X')
 		ft_putstr("0X");
@@ -42,6 +42,8 @@ int		leftpad(t_flag flag, int len, int *len2)
 		}
 	}
 	if (flag.octothorpe == 1 && ft_atoi(flag.str) != 0)
+		printocto(flag);
+	if (flag.c == 'p')
 		printocto(flag);
 	if (flag.plus && flag.str[0] != '-' && (flag.c == 'd' || flag.c == 'D' || flag.c == 'i'))
 	{
@@ -127,11 +129,13 @@ int		printlen(t_flag *flag)
 	}
 	if (flag->octothorpe && ft_atoi(flag->str) != 0)
 	{
-		if (flag->c == 'x' || flag->c == 'X' || flag-> c == 'p')
+		if (flag->c == 'x' || flag->c == 'X')
 			len += 2;
 		if (flag->c == 'o')
 			len += 1;
 	}
+	if (flag->c == 'p')
+		len += 2;
 	return (len);
 }
 
@@ -235,7 +239,7 @@ void	flagparse(t_flag *flag, char *str)
 			cur = 1;
 			i = hold;
 		}
-		if (str[i] == '#' || flag->c == 'p')
+		if (str[i] == '#')
 			flag->octothorpe = 1;
 		if (str[i] == '0' && cur == 0)
 		{
@@ -290,6 +294,7 @@ int		typeselect(va_list args, char *str)
 	flag.str = conhub(args, flag.c, flag.mod);
 	return(demprintz(flag));
 }
+
 int		findflag(char **str, char *format)
 {
 	int		i;
@@ -341,7 +346,9 @@ int		ft_printf(const char *format, ...)
 /*
 int		main(void)
 {
-	ft_printf("%-5.10o\n", 2500);
+	int	n;
+	n = 28;
+	ft_printf("%p\n", &n);
 	return (0);
 }
 */
