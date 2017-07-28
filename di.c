@@ -16,5 +16,7 @@ char	*di(va_list args, char c, int mod)
 		str = ft_itoa((signed char)va_arg(args, int));
 	if (mod == 5)
 		str = ft_itoa(va_arg(args, intmax_t));
+	if (mod == 6)
+		str = ft_itoa(va_arg(args, ssize_t));
 	return (str);
 }

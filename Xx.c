@@ -15,6 +15,8 @@ char	*x(va_list args, int mod)
 		str = ft_itoa_base((unsigned char)va_arg(args, unsigned int), 16, 0);
 	if (mod == 5)
 		str = ft_itoa_base(va_arg(args, uintmax_t), 16, 0);
+	if (mod == 6)
+		str = ft_itoa_base(va_arg(args, size_t), 16, 0);
 	return (str);
 }
 
@@ -33,5 +35,7 @@ char	*X(va_list args, int mod)
 		str = ft_itoa_base((unsigned char)va_arg(args, unsigned int), 16, 1);
 	if (mod == 5)
 		str = ft_itoa_base(va_arg(args, uintmax_t), 16, 1);
+	if (mod == 6)
+		str = ft_itoa_base(va_arg(args, size_t), 16, 1);
 	return (str);
 }
