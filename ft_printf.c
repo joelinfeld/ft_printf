@@ -8,91 +8,37 @@ void	numbers(t_flag flag)
 	flag.marg, flag.mod, flag.octothorpe, flag.zero, flag.minus, flag.plus, flag.space);
 }
 
-void	printocto(t_flag flag)
+int		leftpad(t_flag flag, int *len)
 {
-	if (flag.c == 'x' || flag.c == 'p')
-		ft_putstr("0x");
-	if (flag.c == 'X')
-		ft_putstr("0X");
-	if (flag.c == 'o')
-		ft_putchar('0');
-}
-
-int		leftpad(t_flag flag, int len, int *len2)
-{
-	int i;
 	int	chars;
 	
 	chars = 0;
-	i = 0;
 	if (flag.plus && flag.str[0] != '-' && (flag.c == 'd' || flag.c == 'D' || flag.c == 'i'))
-		len += 1;
+		*len += 1;
 	if (flag.space && !flag.marg && !flag.plus && ft_atoi(flag.str) >= 0 && !(flag.c == 'c' && ft_atoi(flag.str) == 0))
-	{
-		ft_putchar(' ');
-		chars += 1;
-	}
+		chars += ft_putchar_count(' ');
 	if (flag.marg)
-	{
-		i = 0;
-		while(++i <= flag.marg - len)
-		{
-			ft_putchar(' ');
-			chars += 1;
-		}
-	}
+		chars += printmarg(flag, *len);
 	if (flag.octothorpe == 1 && ft_atoi(flag.str) != 0)
 		printocto(flag);
 	if (flag.c == 'p')
 		printocto(flag);
 	if (flag.plus && flag.str[0] != '-' && (flag.c == 'd' || flag.c == 'D' || flag.c == 'i'))
-	{
-		ft_putchar('+');
-		chars += 1;
-	}
+		chars += ft_putchar_count('+');
 	if (flag.str[0] == '-')
 		ft_putchar('-');
 	if (flag.zero && !flag.minus)
-	{
-		i = 0;
-		if (flag.precision != -10000)
-		{
-			while(++i <= flag.zero -len)
-			{
-				ft_putchar(' ');
-				chars += 1;
-			}
-		}
-		else
-		{
-			while(++i <= flag.zero - len)
-			{
-				ft_putchar('0');
-				chars += 1;
-			}
-		}
-	}
-	*len2 = len;
+		chars += printzero(flag, *len);
 	return (chars);
 }
 
 int		rightpad(t_flag flag, int len)
 {
-	int	i;
 	int	chars;
 
 	chars = 0;
-	i = 0;
 	if (flag.minus)
-	{
-		i = 0;
-		while(++i <= flag.minus - len)
-		{
-			ft_putchar(' ');
-			chars += 1;
-		}
-
-	}
+		chars += printminus(flag, len);
 	return (chars);
 }
 
@@ -143,7 +89,6 @@ int		demprintz(t_flag flag)
 {
 	int len;
 	int chars;
-	int len2;
 
 	chars = 0;
 	if (flag.str[0] == '%')
@@ -152,13 +97,13 @@ int		demprintz(t_flag flag)
 		return (1);
 	}
 	len = printlen(&flag);
-	chars += leftpad(flag, len, &len2);
+	chars += len;
+	chars += leftpad(flag, &len);
 	if (flag.str[0] == '-')
 		ft_putstr(&flag.str[1]);
 	else
 		ft_putstr(flag.str);
-	chars += rightpad(flag, len2);
-	chars += len;
+	chars += rightpad(flag, len);
 	return (chars);
 }
 
@@ -173,9 +118,7 @@ char	*conhub(va_list args, char c, int mod)
 	else if (c == 'X')
 		return (X(args, mod));
 	else if (c == 'x')
-	{
 		return (x(args, mod));
-	}
 	else if (ft_strchr("Ss", c))
 		return(s(args, c, mod));
 	else if (ft_strchr("Cc", c))
@@ -206,6 +149,13 @@ void	getmod(t_flag *flag, char *str)
 		flag->mod = 6;
 }
 
+
+int		setflagvalue(int *n, int value, int cur)
+{
+	*n = value;
+	return(cur);
+}
+
 void	flagparse(t_flag *flag, char *str)
 {
 	int	i;
@@ -217,10 +167,7 @@ void	flagparse(t_flag *flag, char *str)
 	while (str[++i])
 	{
 		if (str[i] > '0' && str[i] <= '9' && cur == 0)
-		{
-			flag->marg = ft_atoi(&str[i]);
-			cur = 1;
-		}
+			cur = setflagvalue(&(flag->marg), ft_atoi(&str[i]), 1);
 		if (str[i] == '+')
 			flag->plus = 1;
 		if (str[i] == '-')
@@ -242,17 +189,11 @@ void	flagparse(t_flag *flag, char *str)
 		if (str[i] == '#')
 			flag->octothorpe = 1;
 		if (str[i] == '0' && cur == 0)
-		{
-			flag->zero = ft_atoi(&str[i + 1]);
-			cur = 1;
-		}
+			cur = setflagvalue(&(flag->zero), ft_atoi(&str[i + 1]), 1);
 		if (str[i] == ' ' && str[i + 1] != ' ')
 			flag->space = 1;
 		if (str[i] == '.')
-		{
-			flag->precision = ft_atoi(&str[i + 1]);
-			cur = 1;
-		}
+			cur = setflagvalue(&(flag->precision), ft_atoi(&str[i + 1]), 1);
 	}
 }
 
@@ -273,19 +214,24 @@ void	getformat(char **str, t_flag *flag)
 	flagparse(flag, flagstr);
 }
 
+void	flagnew(t_flag *flag)
+{
+	flag->mod = 0;
+	flag->octothorpe = 0;
+	flag->zero = 0;
+	flag->minus = 0;
+	flag->plus = 0;
+	flag->space = 0;
+	flag->marg = 0;
+	flag->precision = -10000;
+}
+
 int		typeselect(va_list args, char *str)
 {
 	t_flag	flag;
 	int		len;	
 	
-	flag.mod = 0;
-	flag.octothorpe = 0;
-	flag.zero = 0;
-	flag.minus = 0;
-	flag.plus = 0;
-	flag.space = 0;
-	flag.marg = 0;
-	flag.precision = -10000;
+	flagnew(&flag);
 	len = ft_strlen(str);
 	flag.c = str[len - 1];
 	str[len - 1] = '\0';
@@ -314,6 +260,7 @@ int		findflag(char **str, char *format)
 	}
 	return (i);
 }
+
 int		ft_printf(const char *format, ...)
 {
 	va_list	args;
@@ -334,10 +281,7 @@ int		ft_printf(const char *format, ...)
 			i += skip;
 		}
 		else if (format[i])
-		{
-			ft_putchar(format[i]);
-			chars += 1;
-		}
+			chars += ft_putchar_count(format[i]);
 	}
 	va_end(args);
 	return (chars);
