@@ -17,7 +17,6 @@ typedef struct	s_flag
 	char 		c;
 	char		*str;
 }				t_flag;
-
 char			*di(va_list args, char c, int mod);
 char			*o(va_list args, char c, int mod);
 char			*u(va_list args, char c, int mod);
@@ -26,5 +25,10 @@ char			*X(va_list args, int mod);
 char			*ch(va_list args, char c, int mod);
 char			*s(va_list args, char c, int mod);
 char			*p(va_list args, int mod);
+int				ft_putchar_count(char c);
+void			printocto(t_flag flag);
+int				printzero(t_flag flag, int len);
+int				printmarg(t_flag flag, int len);
+int				printminus(t_flag flag, int len);
 
 #endif 
