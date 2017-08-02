@@ -13,9 +13,9 @@ int		leftpad(t_flag flag, int *len)
 	int	chars;
 	
 	chars = 0;
-	if (flag.plus && flag.str[0] != '-' && (flag.c == 'd' || flag.c == 'D' || flag.c == 'i'))
+	if (flag.plus && !flag.isneg  && (flag.c == 'd' || flag.c == 'D' || flag.c == 'i'))
 		*len += 1;
-	if (flag.space && !flag.marg && !flag.plus && ft_atoi(flag.str) >= 0 && !(flag.c == 'c' && ft_atoi(flag.str) == 0))
+	if (flag.space && !flag.marg && !flag.plus && ft_atoi(flag.str) >= 0 && !(flag.c == 'c' && ft_atoi(flag.str) == 0) && !flag.isneg)
 		chars += ft_putchar_count(' ');
 	if (flag.marg)
 		chars += printmarg(flag, *len);
@@ -23,9 +23,9 @@ int		leftpad(t_flag flag, int *len)
 		printocto(flag);
 	if (flag.c == 'p')
 		printocto(flag);
-	if (flag.plus && flag.str[0] != '-' && (flag.c == 'd' || flag.c == 'D' || flag.c == 'i'))
+	if (flag.plus && !flag.isneg && (flag.c == 'd' || flag.c == 'D' || flag.c == 'i'))
 		chars += ft_putchar_count('+');
-	if (flag.str[0] == '-')
+	if (flag.isneg)
 		ft_putchar('-');
 	if (flag.zero && !flag.minus)
 		chars += printzero(flag, *len);
@@ -88,6 +88,8 @@ int		printlen(t_flag *flag)
 	}
 	if (flag->c == 'p')
 		len += 2;
+	if (flag->isneg)
+		len++;
 	return (len);
 }
 
@@ -105,10 +107,7 @@ int		demprintz(t_flag flag)
 	len = printlen(&flag);
 	chars += len;
 	chars += leftpad(flag, &len);
-	if (flag.str[0] == '-')
-		ft_putstr(&flag.str[1]);
-	else
-		ft_putstr(flag.str);
+	ft_putstr(flag.str);
 	chars += rightpad(flag, len);
 	return (chars);
 }
@@ -233,6 +232,7 @@ void	flagnew(t_flag *flag)
 	flag->space = 0;
 	flag->marg = 0;
 	flag->precision = -10000;
+	flag->isneg = 0;
 }
 
 int		typeselect(va_list args, char *str)
@@ -247,6 +247,14 @@ int		typeselect(va_list args, char *str)
 	getformat(&str, &flag);
 	getmod(&flag, str);
 	flag.str = conhub(args, flag.c, flag.mod);
+	if (flag.c == 'd' || flag.c == 'i' || flag.c == 'D' || flag.c == 'I')
+	{
+		if (flag.str[0] == '-')
+		{
+			++flag.str;
+			flag.isneg = 1;
+		}
+	}
 	return(demprintz(flag));
 }
 

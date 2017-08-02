@@ -14,6 +14,7 @@ typedef struct	s_flag
 	int			plus;
 	int			space;
 	int			precision;
+	int			isneg;
 	char 		c;
 	char		*str;
 }				t_flag;
