@@ -42,37 +42,43 @@ int		rightpad(t_flag flag, int len)
 	return (chars);
 }
 
+int		handleprecision(t_flag *flag, int len)
+{
+	int	i;
+	char *str;
+	char *str2;
+
+	i = 0;
+	if (flag->precision && flag->c == 's')
+	{
+		if (flag->precision < len)
+		{
+			flag->str[flag->precision] = '\0';
+			len = flag->precision;
+		}		
+	}
+	else if (flag->precision > len && flag->c != 's' && flag->c != 'c')
+	{
+		i = -1;
+		str = ft_strnew(flag->precision);
+		while (++i < flag->precision - len)
+			str[i] = '0';
+		len = flag->precision;
+			str2 = ft_strjoin(str, flag->str);
+		flag->str = str2;
+	}
+	return (len);
+}
+
 int		printlen(t_flag *flag)
 {
 	int	len;
-	char *str;
-	char *str2;
-	int	i;
 
 	len = ft_strlen(flag->str);
 	if (flag->str[0] == 0 && flag->c == 'c')
 		len = 1;
 	if (flag->precision != -10000)
-	{
-		if (flag->precision && flag->c == 's')
-		{
-			if (flag->precision < len)
-			{
-				flag->str[flag->precision] = '\0';
-				len = flag->precision;
-			}
-		}
-		else if (flag->precision > len && flag->c != 's' && flag->c != 'c')
-		{
-			i = -1;
-			str = ft_strnew(flag->precision);
-			while (++i < flag->precision - len)
-				str[i] = '0';
-			len = flag->precision;
-				str2 = ft_strjoin(str, flag->str);
-			flag->str = str2;
-		}
-	}
+		len = handleprecision(flag, len);
 	if (flag->octothorpe && ft_atoi(flag->str) != 0)
 	{
 		if (flag->c == 'x' || flag->c == 'X')
@@ -156,11 +162,28 @@ int		setflagvalue(int *n, int value, int cur)
 	return(cur);
 }
 
+int		setflagminus(t_flag *flag, char *str)
+{
+	int i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == '.')
+			break ;
+		if (str[i] >= '0' && str[i] <= '9')
+		{
+			flag->minus = ft_atoi(&str[i]);
+			break ;
+		}
+	}
+	return (1);
+}
+
 void	flagparse(t_flag *flag, char *str)
 {
 	int	i;
 	int cur;
-	int hold;
 
 	cur = 0;
 	i = -1;
@@ -171,21 +194,7 @@ void	flagparse(t_flag *flag, char *str)
 		if (str[i] == '+')
 			flag->plus = 1;
 		if (str[i] == '-')
-		{
-			hold = i;
-			while (str[++i])
-			{
-				if (str[i] == '.')
-					break ;
-				if (str[i] >= '0' && str[i] <= '9')
-				{
-					flag->minus = ft_atoi(&str[i]);
-					break ;
-				}
-			}
-			cur = 1;
-			i = hold;
-		}
+			cur = setflagminus(flag, &str[i]);
 		if (str[i] == '#')
 			flag->octothorpe = 1;
 		if (str[i] == '0' && cur == 0)
