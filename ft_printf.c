@@ -194,22 +194,25 @@ void	flagparse(t_flag *flag, char *str)
 
 	cur = 0;
 	i = -1;
-	while (str[++i])
+	if (str != NULL)
 	{
-		if (str[i] > '0' && str[i] <= '9' && cur == 0)
-			cur = setflagvalue(&(flag->marg), ft_atoi(&str[i]), 1);
-		if (str[i] == '+')
-			flag->plus = 1;
-		if (str[i] == '-')
-			cur = setflagminus(flag, &str[i]);
-		if (str[i] == '#')
-			flag->octothorpe = 1;
-		if (str[i] == '0' && cur == 0)
-			cur = setflagvalue(&(flag->zero), ft_atoi(&str[i + 1]), 1);
-		if (str[i] == ' ' && str[i + 1] != ' ')
-			flag->space = 1;
-		if (str[i] == '.')
-			cur = setflagvalue(&(flag->precision), ft_atoi(&str[i + 1]), 1);
+		while (str[++i])
+		{
+			if (str[i] > '0' && str[i] <= '9' && cur == 0)
+				cur = setflagvalue(&(flag->marg), ft_atoi(&str[i]), 1);
+			if (str[i] == '+')
+				flag->plus = 1;
+			if (str[i] == '-')
+				cur = setflagminus(flag, &str[i]);
+			if (str[i] == '#')
+				flag->octothorpe = 1;
+			if (str[i] == '0' && cur == 0)
+				cur = setflagvalue(&(flag->zero), ft_atoi(&str[i + 1]), 1);
+			if (str[i] == ' ' && str[i + 1] != ' ')
+				flag->space = 1;
+			if (str[i] == '.')
+				cur = setflagvalue(&(flag->precision), ft_atoi(&str[i + 1]), 1);
+	}
 	}
 }
 
