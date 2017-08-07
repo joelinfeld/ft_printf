@@ -8,7 +8,7 @@ int		leftpad(t_flag flag, int *len)
 	chars = 0;
 	if (flag.plus && !flag.isneg  && (flag.c == 'd' || flag.c == 'D' || flag.c == 'i'))
 		*len += 1;
-	if (flag.space && !flag.marg && !flag.plus && ft_atoi(flag.str) >= 0 && !(flag.c == 'c' && ft_atoi(flag.str) == 0) && !flag.isneg)
+	if (flag.space && *len >= flag.marg && !flag.plus && ft_atoi(flag.str) >= 0 && !(flag.c == 'c' && ft_atoi(flag.str) == 0) && !flag.isneg)
 		chars += ft_putchar_count(' ');
 	if (flag.marg)
 		chars += printmarg(flag, *len);
