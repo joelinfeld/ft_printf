@@ -47,7 +47,7 @@ int		handleprecision(t_flag *flag, int len)
 		if (flag->precision < len)
 		{
 			str - ft_strnew(flag->precision);
-			str = ft_strncpy(flag->str, flag->precision);
+			str = ft_strncpy(str, flag->str, flag->precision);
 			flag->str = str;
 			flag->str[flag->precision] = '\0';
 			len = ft_strlen(flag->str);
