@@ -42,7 +42,7 @@ int		handleprecision(t_flag *flag, int len)
 	char *str2;
 
 	i = 0;
-	if (flag->precision && flag->c == 's')
+	if (flag->precision && flag->c == 's' && flag->str != NULL)
 	{
 		if (flag->precision < len)
 		{
@@ -53,7 +53,7 @@ int		handleprecision(t_flag *flag, int len)
 			len = ft_strlen(flag->str);
 		}		
 	}
-	if (flag->precision > len && flag->c != 's' && flag->c != 'c')
+	if (flag->precision > len && flag->c != 's' && flag->c != 'c' && flag->str)
 	{
 		i = -1;
 		str = ft_strnew(flag->precision - len);
@@ -103,7 +103,7 @@ int		demprintz(t_flag flag)
 	int chars;
 
 	chars = 0;
-	if (flag.str[0] == '%')
+	if (flag.str && flag.str[0] == '%')
 	{
 		ft_putstr(flag.str);
 		return (1);
@@ -111,7 +111,8 @@ int		demprintz(t_flag flag)
 	len = printlen(&flag);
 	chars += len;
 	chars += leftpad(flag, &len);
-	ft_putstr(flag.str);
+	if (flag.str != NULL)
+		ft_putstr(flag.str);
 	chars += rightpad(flag, len);
 	return (chars);
 }
