@@ -53,12 +53,12 @@ int		handleprecision(t_flag *flag, int len)
 	else if (flag->precision > len && flag->c != 's' && flag->c != 'c')
 	{
 		i = -1;
-		str = ft_strnew(flag->precision);
+		str = ft_strnew(flag->precision - len);
 		while (++i < flag->precision - len)
 			str[i] = '0';
-		len = flag->precision;
-			str2 = ft_strjoin(str, flag->str);
+		str2 = ft_strjoin(str, flag->str);
 		flag->str = str2;
+		len = ft_strlen(flag->str);
 	}
 	if (flag->precision < len && flag->c != 's' && flag->c != 'c')
 	{
@@ -78,8 +78,8 @@ int		printlen(t_flag *flag)
 	len = ft_strlen(flag->str);
 	if (flag->str[0] == 0 && flag->c == 'c')
 		len = 1;
-	//if (flag->precision != -10000)
-	//	len = handleprecision(flag, len);
+	if (flag->precision != -10000)
+		len = handleprecision(flag, len);
 	if (flag->octothorpe && ft_atoi(flag->str) != 0)
 	{
 		if (flag->c == 'x' || flag->c == 'X')
