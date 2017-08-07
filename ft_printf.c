@@ -1,13 +1,6 @@
 #include "ft_printf.h"
 #include <stdio.h>
 
-char				*ft_itoa_base(uintmax_t n, int base, int caseflag);
-void	numbers(t_flag flag)
-{
-	printf("marg: %d\nmod: %d\nocto: %d\nzero: %d\nminus: %d\nplus: %d\nspace: %d\n",
-	flag.marg, flag.mod, flag.octothorpe, flag.zero, flag.minus, flag.plus, flag.space);
-}
-
 int		leftpad(t_flag flag, int *len)
 {
 	int	chars;
@@ -66,6 +59,14 @@ int		handleprecision(t_flag *flag, int len)
 		len = flag->precision;
 			str2 = ft_strjoin(str, flag->str);
 		flag->str = str2;
+	}
+	if (flag->precision < len && flag->c != 's' && flag->c != 'c')
+	{
+		if (flag->str[0] == '0')
+		{
+			flag->str[0] = '\0';
+			len = 0;
+		}
 	}
 	return (len);
 }
