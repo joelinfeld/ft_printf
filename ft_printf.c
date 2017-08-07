@@ -53,7 +53,7 @@ int		handleprecision(t_flag *flag, int len)
 		}		
 	}
 	*/
-	else if (flag->precision > len && flag->c != 's' && flag->c != 'c')
+	if (flag->precision > len && flag->c != 's' && flag->c != 'c')
 	{
 		i = -1;
 		str = ft_strnew(flag->precision - len);
