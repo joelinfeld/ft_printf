@@ -63,7 +63,7 @@ int		handleprecision(t_flag *flag, int len)
 		flag->str = str2;
 		len = ft_strlen(flag->str);
 	}
-	if (flag->precision < len && flag->c != 's' && flag->c != 'c')
+	if (flag->precision < len && flag->c != 's' && flag->c != 'c' && flag->str)
 	{
 		if (flag->str[0] == '0')
 		{
@@ -260,7 +260,7 @@ int		typeselect(va_list args, char *str)
 	flag.str = conhub(args, flag.c, flag.mod);
 	if (flag.c == 'd' || flag.c == 'i' || flag.c == 'D' || flag.c == 'I')
 	{
-		if (flag.str[0] == '-')
+		if (flag.str && flag.str[0] == '-')
 		{
 			++flag.str;
 			flag.isneg = 1;
