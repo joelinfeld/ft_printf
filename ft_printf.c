@@ -42,17 +42,17 @@ int		handleprecision(t_flag *flag, int len)
 	char *str2;
 
 	i = 0;
-	/*
 	if (flag->precision && flag->c == 's')
 	{
 		if (flag->precision < len)
 		{
-			str2 = ft_strndup(flag->str, flag->precision);
+			str - ft_strnew(flag->precision);
+			str = ft_strncpy(flag->str, flag->precision);
+			flag->str = str;
 			flag->str[flag->precision] = '\0';
-			len = flag->precision;
+			len = ft_strlen(flag->str);
 		}		
 	}
-	*/
 	if (flag->precision > len && flag->c != 's' && flag->c != 'c')
 	{
 		i = -1;
