@@ -78,8 +78,8 @@ int		printlen(t_flag *flag)
 	len = ft_strlen(flag->str);
 	if (flag->str[0] == 0 && flag->c == 'c')
 		len = 1;
-	if (flag->precision != -10000)
-		len = handleprecision(flag, len);
+	//if (flag->precision != -10000)
+	//	len = handleprecision(flag, len);
 	if (flag->octothorpe && ft_atoi(flag->str) != 0)
 	{
 		if (flag->c == 'x' || flag->c == 'X')
