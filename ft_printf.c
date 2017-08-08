@@ -277,7 +277,7 @@ int		findflag(char **str, char *format)
 	i = -1;
 	while (format[++i])
 	{
-		if (ft_strchr("pdiouxXcSDOUxC%", format[i]))
+		if (ft_strchr("pdiouxXcDOUxC%", format[i]))
 		{
 			cpy = ft_strdup(format);
 			cpy[i + 1] = '\0';
