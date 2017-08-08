@@ -283,10 +283,11 @@ int		findflag(char **str, char *format)
 			cpy[i + 1] = '\0';
 			*str = ft_strdup(cpy);
 			ft_strdel(&cpy);
+			i++;
 			break ;
 		}
 	}
-	return (i + 1);
+	return (i);
 }
 
 int		ft_printf(const char *format, ...)
