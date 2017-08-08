@@ -53,7 +53,7 @@ int		handleprecision(t_flag *flag, int len)
 			len = ft_strlen(flag->str);
 		}		
 	}
-	if (flag->precision > len && flag->c != 's' && flag->c != 'c' && flag->str)
+	if (flag->precision > len && flag->c != 's' && flag->c != 'c' && flag->str != NULL)
 	{
 		i = -1;
 		str = ft_strnew(flag->precision - len);
@@ -63,7 +63,7 @@ int		handleprecision(t_flag *flag, int len)
 		flag->str = str2;
 		len = ft_strlen(flag->str);
 	}
-	if (flag->precision < len && flag->c != 's' && flag->c != 'c' && flag->str)
+	if (flag->precision < len && flag->c != 's' && flag->c != 'c' && flag->str != NULL)
 	{
 		if (flag->str[0] == '0')
 		{
@@ -77,8 +77,11 @@ int		handleprecision(t_flag *flag, int len)
 int		printlen(t_flag *flag)
 {
 	int	len;
-
-	len = ft_strlen(flag->str);
+	
+	if (flag ->str != NULL)
+		len = ft_strlen(flag->str);
+	else
+		len = 0;
 	if (flag->str != NULL)
 	{
 		if (flag->str[0] == 0 && flag->c == 'c')
@@ -86,7 +89,7 @@ int		printlen(t_flag *flag)
 		if (flag->precision != -10000)
 			len = handleprecision(flag, len);
 	}
-	if (flag->octothorpe && ft_atoi(flag->str) != 0)
+	if (flag->str != NULL && flag->octothorpe && ft_atoi(flag->str) != 0)
 	{
 		if (flag->c == 'x' || flag->c == 'X')
 			len += 2;
@@ -106,7 +109,7 @@ int		demprintz(t_flag flag)
 	int chars;
 
 	chars = 0;
-	if (flag.str && flag.str[0] == '%')
+	if (flag.str != NULL && flag.str[0] == '%')
 	{
 		ft_putstr(flag.str);
 		return (1);
@@ -258,7 +261,6 @@ int		typeselect(va_list args, char *str)
 	getformat(&str, &flag);
 	getmod(&flag, str);
 	flag.str = conhub(args, flag.c, flag.mod);
-	/*
 	if (flag.c == 'd' || flag.c == 'i' || flag.c == 'D' || flag.c == 'I')
 	{
 		if (flag.str && flag.str[0] == '-')
@@ -267,7 +269,6 @@ int		typeselect(va_list args, char *str)
 			flag.isneg = 1;
 		}
 	}
-	*/
 	return(demprintz(flag));
 }
 
