@@ -258,6 +258,7 @@ int		typeselect(va_list args, char *str)
 	getformat(&str, &flag);
 	getmod(&flag, str);
 	flag.str = conhub(args, flag.c, flag.mod);
+	/*
 	if (flag.c == 'd' || flag.c == 'i' || flag.c == 'D' || flag.c == 'I')
 	{
 		if (flag.str && flag.str[0] == '-')
@@ -266,6 +267,7 @@ int		typeselect(va_list args, char *str)
 			flag.isneg = 1;
 		}
 	}
+	*/
 	return(demprintz(flag));
 }
 
@@ -308,7 +310,7 @@ int		ft_printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			skip = findflag(&str, (char*)&format[++i]);
-			//chars += typeselect(args, str);
+			chars += typeselect(args, str);
 			i += skip;
 		}
 		else if (format[i])
