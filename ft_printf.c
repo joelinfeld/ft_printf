@@ -273,7 +273,7 @@ int		findflag(char **str, char *format)
 {
 	int		i;
 	char	*cpy;
-
+	int		find = 0;
 	i = -1;
 	while (format[++i])
 	{
@@ -283,10 +283,12 @@ int		findflag(char **str, char *format)
 			cpy[i + 1] = '\0';
 			*str = ft_strdup(cpy);
 			ft_strdel(&cpy);
-			i++;
+			find = 1;
 			break ;
 		}
 	}
+	if (!find)
+		i -= 1;
 	return (i);
 }
 
