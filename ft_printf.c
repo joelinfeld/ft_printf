@@ -308,7 +308,7 @@ int		ft_printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			skip = findflag(&str, (char*)&format[++i]);
-			chars += typeselect(args, str);
+			//chars += typeselect(args, str);
 			i += skip;
 		}
 		else if (format[i])
