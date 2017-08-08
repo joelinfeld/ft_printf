@@ -277,7 +277,7 @@ int		findflag(char **str, char *format)
 	i = -1;
 	while (format[++i])
 	{
-		if (ft_strchr("pdiouxXcDOUxC%", format[i]))
+		if (ft_strchr("SspdiouxXcDOUxC%", format[i]))
 		{
 			cpy = ft_strdup(format);
 			cpy[i + 1] = '\0';
@@ -299,8 +299,8 @@ int		ft_printf(const char *format, ...)
 	
 	va_start(args, format);
 	chars = 0;
-	i = -1;
-	while (format[++i])
+	i = 0;
+	while (format[i])
 	{
 		if (format[i] == '%')
 		{
@@ -310,6 +310,7 @@ int		ft_printf(const char *format, ...)
 		}
 		else if (format[i])
 			chars += ft_putchar_count(format[i]);
+		i++;
 	}
 	va_end(args);
 	return (chars);
