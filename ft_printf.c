@@ -84,7 +84,7 @@ int		printlen(t_flag *flag)
 		len = 0;
 	if (flag->str != NULL)
 	{
-		if (flag->str[0] == 0 && flag->c == 'c')
+		if (flag->str[0] < 32 && flag->c == 'c')
 			len = 1;
 		if (flag->precision != -10000)
 			len = handleprecision(flag, len);
@@ -217,7 +217,7 @@ void	flagparse(t_flag *flag, char *str)
 				flag->space = 1;
 			if (str[i] == '.')
 				cur = setflagvalue(&(flag->precision), ft_atoi(&str[i + 1]), 1);
-	}
+		}
 	}
 }
 
