@@ -286,7 +286,7 @@ int		findflag(char **str, char *format)
 			break ;
 		}
 	}
-	return (i);
+	return (i + 1);
 }
 
 int		ft_printf(const char *format, ...)
