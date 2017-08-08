@@ -84,7 +84,7 @@ int		printlen(t_flag *flag)
 		len = 0;
 	if (flag->str != NULL)
 	{
-		if (flag->str[0] < 32 && flag->c == 'c')
+		if ((flag->str[0] < 32 || flag->str[0] == 127) && flag->c == 'c')
 			len = 1;
 		if (flag->precision != -10000)
 			len = handleprecision(flag, len);
