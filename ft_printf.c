@@ -119,6 +119,8 @@ int		demprintz(t_flag flag)
 	chars += leftpad(flag, &len);
 	if (flag.str != NULL)
 		ft_putstr(flag.str);
+	else
+		ft_putstr("(null)");
 	chars += rightpad(flag, len);
 	return (chars);
 }
