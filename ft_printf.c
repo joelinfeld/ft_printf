@@ -279,7 +279,7 @@ int		findflag(char **str, char *format)
 	int		i;
 	char	*cpy;
 	int		find = 0;
-	i = -1;
+	i = 0;
 	while (format[++i])
 	{
 		if (ft_strchr("SspdiouxXcDOUxC%", format[i]))
@@ -312,8 +312,9 @@ int		ft_printf(const char *format, ...)
 	{
 		if (format[i] == '%')
 		{
-			skip = findflag(&str, (char*)&format[++i]);
-			chars += typeselect(args, str);
+			skip = findflag(&str, (char*)&format[i]);
+			if (skip)
+				chars += typeselect(args, str);
 			i += skip;
 		}
 		else if (format[i])
