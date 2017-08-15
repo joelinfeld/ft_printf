@@ -293,7 +293,7 @@ int		findflag(char **str, char *format)
 		}
 	}
 	if (!find)
-		i = 0;
+		i -= 1;
 	return (i);
 }
 
