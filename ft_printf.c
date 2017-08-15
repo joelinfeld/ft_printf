@@ -293,7 +293,7 @@ int		findflag(char **str, char *format)
 		}
 	}
 	if (!find)
-		i -= 1;
+		i = 0;
 	return (i);
 }
 
@@ -313,7 +313,8 @@ int		ft_printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			skip = findflag(&str, (char*)&format[++i]);
-			chars += typeselect(args, str);
+			if (skip)
+				chars += typeselect(args, str);
 			i += skip;
 		}
 		else if (format[i])
