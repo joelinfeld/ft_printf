@@ -120,7 +120,10 @@ int		demprintz(t_flag flag)
 	if (flag.str != NULL)
 		ft_putstr(flag.str);
 	else
+	{
 		ft_putstr("(null)");
+		chars += 6;
+	}
 	chars += rightpad(flag, len);
 	return (chars);
 }
