@@ -113,7 +113,7 @@ int		wprintlen(t_flag *flag)
 	if (flag->wstr != NULL)
 		while (flag->wstr[++i])
 	len = i;
-	return (len * 2);
+	return (len);
 }
 
 void	ft_wputstr(wchar_t  *str)
