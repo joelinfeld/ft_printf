@@ -121,7 +121,7 @@ void	ft_wputstr(wchar_t  *str)
 	int	i;
 	
 	i = -1;
-	while (str[++i])
+	while (str[++i] != L'\0')
 		write(1, &str[i], sizeof(wchar_t));
 }
 
