@@ -122,12 +122,12 @@ void	ft_wputstr(wchar_t  *str)
 	
 	i = -1;
 	while (str[++i])
-		write(1, &str[i], 2);
+		write(1, &str[i], 4);
 }
 
 void	ft_wputchar(wchar_t c)
 {
-	write(1, &c, 2);
+	write(1, &c, 4);
 }
 
 int		demprintz(t_flag flag)
