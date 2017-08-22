@@ -127,16 +127,20 @@ int		demprintz(t_flag flag)
 	len = printlen(&flag);
 	chars += len;
 	chars += leftpad(flag, &len);
+	/*
 	if (flag.c == 'S' || flag.c == 'C' || (flag.c == 's' && flag.mod == 1) || (flag.c == 'c' && flag.mod == 1))
+	{
 		chars += ft_wputstr(flag.wstr);
-	else if (flag.str != NULL)
+	}
+	*/
+	if (flag.str != NULL)
 	{
 		if (flag.c == 'c')
 			ft_putchar(*flag.str);
 		else
 			ft_putstr(flag.str);
 	}
-	else
+	else 
 	{
 		ft_putstr("(null)");
 		chars += 6;
@@ -270,6 +274,8 @@ void	getformat(char **str, t_flag *flag)
 
 void	flagnew(t_flag *flag)
 {
+	flag->str = NULL;
+	flag->wstr = NULL;
 	flag->mod = 0;
 	flag->octothorpe = 0;
 	flag->zero = 0;
