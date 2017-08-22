@@ -118,7 +118,12 @@ int		demprintz(t_flag flag)
 	chars += len;
 	chars += leftpad(flag, &len);
 	if (flag.str != NULL)
-		ft_putstr(flag.str);
+	{
+		if (flag.c == 'c')
+			ft_putchar(*flag.str);
+		else
+			ft_putstr(flag.str);
+	}
 	else
 	{
 		ft_putstr("(null)");
@@ -333,7 +338,7 @@ int		main(void)
 {
 	int	n;
 	n = 28;
-	ft_printf("%p\n", &n);
+	ft_printf("%cHello World\n", 0);
 	return (0);
 }
 */
