@@ -103,6 +103,16 @@ int		printlen(t_flag *flag)
 	return (len);
 }
 
+int		ft_wputstr(wchar_t  *str)
+{
+	int	i;
+	
+	i = -1;
+	while (str[++i])
+		write(1, &str[i], 2);
+	return (i);
+}
+
 int		demprintz(t_flag flag)
 {
 	int len;
@@ -117,7 +127,9 @@ int		demprintz(t_flag flag)
 	len = printlen(&flag);
 	chars += len;
 	chars += leftpad(flag, &len);
-	if (flag.str != NULL)
+	if (flag.c == 'S' || flag.c == 'C' || (flag.c == 's' && flag.mod == 1) || (flag.c == 'c' && flag.mod == 1))
+		chars += ft_wputstr(flag.wstr);
+	else if (flag.str != NULL)
 	{
 		if (flag.c == 'c')
 			ft_putchar(*flag.str);
@@ -145,15 +157,25 @@ char	*conhub(va_list args, char c, int mod)
 		return (X(args, mod));
 	else if (c == 'x')
 		return (x(args, mod));
-	else if (ft_strchr("Ss", c))
-		return(s(args, c, mod));
-	else if (ft_strchr("Cc", c))
-		return (ch(args, c, mod));
+	else if (ft_strchr("s", c))
+		return(s(args, mod));
+	else if (ft_strchr("c", c))
+		return (ch(args, mod));
 	else if (c == 'p')
 		return (p(args, mod));
 	else if (c == '%')
 		return ("%");
 	else
+		return (NULL);
+}
+
+wchar_t	*wconhub(va_list args, char c, int mod)
+{
+	if (ft_strchr("Ss", c))
+		return (ws(args, c, mod));
+	if (ft_strchr("Cc", c))
+		return (wc(args, c, mod));
+	else 
 		return (NULL);
 }
 
@@ -271,6 +293,7 @@ int		typeselect(va_list args, char *str)
 	getformat(&str, &flag);
 	getmod(&flag, str);
 	flag.str = conhub(args, flag.c, flag.mod);
+	flag.wstr = wconhub(args, flag.c, flag.mod);
 	if (flag.c == 'd' || flag.c == 'i' || flag.c == 'D' || flag.c == 'I')
 	{
 		if (flag.str && flag.str[0] == '-')
