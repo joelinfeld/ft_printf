@@ -3,6 +3,7 @@
 # include "libft.h"
 # include <stdarg.h>
 # include <stdint.h>
+# include <limits.h>
 
 typedef struct	s_flag
 {
@@ -15,6 +16,7 @@ typedef struct	s_flag
 	int			space;
 	int			precision;
 	int			isneg;
+	int			wide;
 	char 		c;
 	char		*str;
 	wchar_t		*wstr;
