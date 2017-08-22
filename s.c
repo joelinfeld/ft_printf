@@ -1,11 +1,11 @@
 #include "ft_printf.h"
 
-char	*s(va_list args, char c, int mod)
+char	*s(va_list args, int mod)
 {
 	char	*str;
-	if (mod == 0 && c != 'S')
+	if (mod == 0)
 		str = va_arg(args, char*);
-	if (mod == 1 || c == 'S')
-		str = (char*)va_arg(args, wchar_t*);
+	else 
+		str = NULL;
 	return (str);
 }
