@@ -127,7 +127,7 @@ void	ft_wputstr(wchar_t  *str)
 
 void	ft_wputchar(wchar_t c)
 {
-	write(1. &c, 2);
+	write(1, &c, 2);
 }
 
 int		demprintz(t_flag flag)
