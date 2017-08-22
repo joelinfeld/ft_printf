@@ -136,7 +136,7 @@ int		demprintz(t_flag flag)
 	int chars;
 
 	chars = 0;
-	if (flag.str != NULL && flag.str[0] == '%')
+	if (!flag.wide && flag.str != NULL && flag.str[0] == '%')
 	{
 		ft_putstr(flag.str);
 		return (1);
@@ -149,7 +149,7 @@ int		demprintz(t_flag flag)
 	chars += leftpad(flag, &len);
 	if (flag.wide)
 	{
-		if (flag.c == 'c')
+		if (flag.c == 'c' || flag.c == 'C')
 			ft_wputchar(*flag.wstr);
 		else
 			ft_wputstr(flag.wstr);
