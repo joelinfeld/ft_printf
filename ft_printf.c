@@ -78,7 +78,7 @@ int		printlen(t_flag *flag)
 {
 	int	len;
 	
-	if (flag ->str != NULL)
+	if (flag->str != NULL)
 		len = ft_strlen(flag->str);
 	else
 		len = 0;
@@ -103,14 +103,26 @@ int		printlen(t_flag *flag)
 	return (len);
 }
 
-int		ft_wputstr(wchar_t  *str)
+int		wprintlen(t_flag *flag)
+{
+	int len;
+	int	i;
+
+	i = -1;
+	len = 0;
+	if (flag->wstr != NULL)
+		while (flag->wstr[++i])
+	len = i;
+	return (len);
+}
+
+void	ft_wputstr(wchar_t  *str)
 {
 	int	i;
 	
 	i = -1;
 	while (str[++i])
 		write(1, &str[i], 2);
-	return (i);
 }
 
 int		demprintz(t_flag flag)
@@ -124,16 +136,15 @@ int		demprintz(t_flag flag)
 		ft_putstr(flag.str);
 		return (1);
 	}
-	len = printlen(&flag);
+	if (flag.wide)
+		len = wprintlen(&flag);
+	else
+		len = printlen(&flag);
 	chars += len;
 	chars += leftpad(flag, &len);
-	/*
-	if (flag.c == 'S' || flag.c == 'C' || (flag.c == 's' && flag.mod == 1) || (flag.c == 'c' && flag.mod == 1))
-	{
-		chars += ft_wputstr(flag.wstr);
-	}
-	*/
-	if (flag.str != NULL)
+	if (flag.wide)
+		ft_wputstr(flag.wstr);
+	else if(flag.str != NULL)
 	{
 		if (flag.c == 'c')
 			ft_putchar(*flag.str);
@@ -161,9 +172,9 @@ char	*conhub(va_list args, char c, int mod)
 		return (X(args, mod));
 	else if (c == 'x')
 		return (x(args, mod));
-	else if (ft_strchr("s", c))
+	else if (c == 's')
 		return(s(args, mod));
-	else if (ft_strchr("c", c))
+	else if (c == 'c')
 		return (ch(args, mod));
 	else if (c == 'p')
 		return (p(args, mod));
@@ -200,7 +211,6 @@ void	getmod(t_flag *flag, char *str)
 	if	(ft_strequ(str, "z"))
 		flag->mod = 6;
 }
-
 
 int		setflagvalue(int *n, int value, int cur)
 {
@@ -285,6 +295,7 @@ void	flagnew(t_flag *flag)
 	flag->marg = 0;
 	flag->precision = -10000;
 	flag->isneg = 0;
+	flag->wide = 0;
 }
 
 int		typeselect(va_list args, char *str)
@@ -298,8 +309,13 @@ int		typeselect(va_list args, char *str)
 	str[len - 1] = '\0';
 	getformat(&str, &flag);
 	getmod(&flag, str);
-	flag.str = conhub(args, flag.c, flag.mod);
-	flag.wstr = wconhub(args, flag.c, flag.mod);
+	if (flag.c == 'S' || flag.c == 'C' || (flag.c == 's' && flag.mod == 1) || (flag.c == 'c' && flag.mod == 1))
+	{
+		flag.wstr = wconhub(args, flag.c, flag.mod);
+		flag.wide = 1;
+	}
+	else
+		flag.str = conhub(args, flag.c, flag.mod);
 	if (flag.c == 'd' || flag.c == 'i' || flag.c == 'D' || flag.c == 'I')
 	{
 		if (flag.str && flag.str[0] == '-')
