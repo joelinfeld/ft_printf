@@ -4,6 +4,7 @@
 # include <stdarg.h>
 # include <stdint.h>
 # include <limits.h>
+# include <locale.h>
 
 typedef struct	s_flag
 {
