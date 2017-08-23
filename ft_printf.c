@@ -370,6 +370,7 @@ int		ft_printf(const char *format, ...)
 	int		skip;
 	int		chars;
 	
+	setlocale(LC_ALL, NULL);
 	va_start(args, format);
 	chars = 0;
 	i = 0;
