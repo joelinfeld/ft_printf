@@ -121,7 +121,7 @@ void	ft_wputstr(wchar_t  *str)
 	int	i;
 	
 	i = -1;
-	while (str[++i] != L'\0')
+	while (str[++i])
 		write(1, &str[i], sizeof(wchar_t));
 }
 
@@ -197,7 +197,9 @@ char	*conhub(va_list args, char c, int mod)
 wchar_t	*wconhub(va_list args, char c, int mod)
 {
 	if (ft_strchr("Ss", c))
+	{
 		return (ws(args, c, mod));
+	}
 	if (ft_strchr("Cc", c))
 		return (wc(args, c, mod));
 	else 
@@ -391,9 +393,7 @@ int		ft_printf(const char *format, ...)
 /*
 int		main(void)
 {
-	int	n;
-	n = 28;
-	ft_printf("%cHello World\n", 0);
+	ft_printf("%S", L"米");
 	return (0);
 }
 */
