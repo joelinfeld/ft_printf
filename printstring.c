@@ -6,11 +6,12 @@
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 15:41:13 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/08/23 20:03:22 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/08/23 20:17:43 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdlib.h>
 
 void	ft_wputstr(wchar_t  *str)
 {
@@ -26,7 +27,7 @@ void	ft_wputchar(wchar_t c)
 	unsigned int	n;
 	
 	n = (unsigned int)c;
-	if (n <= 127)
+	if (n < (MB_CUR_MAX == 1 ? 255 : 127))
 		ft_putchar(n);
 	else if (n <= 2047)
 	{
