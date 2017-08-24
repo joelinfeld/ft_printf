@@ -5,7 +5,7 @@ CFLAGS=-Wall -Wextra -Werror
 SRCS=$(wildcard *.c)
 OBJS=$(SRCS:%.c=%.o)
 
-all: $(NAME)
+all: $(NAME) 
 
 $(NAME): $(OBJS)
 	ar rc $(NAME) $(OBJS) 

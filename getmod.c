@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   getmod.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/18 12:09:53 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/01/26 01:10:48 by jinfeld          ###   ########.fr       */
+/*   Created: 2017/08/23 15:09:38 by jinfeld           #+#    #+#             */
+/*   Updated: 2017/08/23 15:10:02 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(t_list *elem))
+void	getmod(t_flag *flag, char *str)
 {
-	t_list *current;
-
-	current = lst;
-	while (current)
-	{
-		f(current);
-		current = current->next;
-	}
+	if (!ft_strlen(str))
+		flag->mod = 0;
+	if	(ft_strequ(str, "l"))
+		flag->mod = 1;
+	if	(ft_strequ(str, "ll"))
+		flag->mod = 2;
+	if	(ft_strequ(str, "h"))
+		flag->mod = 3;
+	if	(ft_strequ(str, "hh"))
+		flag->mod = 4;
+	if	(ft_strequ(str, "j"))
+		flag->mod = 5;	
+	if	(ft_strequ(str, "z"))
+		flag->mod = 6;
 }
