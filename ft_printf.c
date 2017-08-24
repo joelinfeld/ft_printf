@@ -6,7 +6,7 @@
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 12:20:00 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/08/23 15:43:54 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/08/23 20:20:52 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int		ft_printf(const char *format, ...)
 	int		skip;
 	int		chars;
 
-	setlocale(LC_ALL, NULL);
+	//setlocale(LC_ALL, NULL);
 	va_start(args, format);
 	chars = 0;
 	i = 0;
