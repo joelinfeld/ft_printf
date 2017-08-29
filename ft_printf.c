@@ -6,14 +6,14 @@
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 12:20:00 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/08/29 06:59:40 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/08/29 07:47:29 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 
-void	getformat(char **str, t_flag *flag)
+void	getformat(char **str, t_flag *flag, va_list args)
 {
 	int		i;
 	char	*flagstr;
@@ -27,7 +27,7 @@ void	getformat(char **str, t_flag *flag)
 	flagstr = ft_strdup(*str);
 	flagstr[i] = '\0';
 	*str += i;
-	flagparse(flag, flagstr);
+	flagparse(flag, flagstr, args);
 }
 
 int		typeselect(va_list args, char *str)
@@ -39,10 +39,8 @@ int		typeselect(va_list args, char *str)
 	len = ft_strlen(str);
 	flag.c = str[len - 1];
 	str[len - 1] = '\0';
-	getformat(&str, &flag);
+	getformat(&str, &flag, args);
 	getmod(&flag, str);
-	if (flag.ast)
-		flag.marg = va_arg(args, int);
 	if (flag.c == 'S' || flag.c == 'C' || (flag.c == 's' && flag.mod == 1) || (flag.c == 'c' && flag.mod == 1))
 	{
 		flag.wstr = wconhub(args, flag.c, flag.mod);
