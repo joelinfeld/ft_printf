@@ -6,7 +6,7 @@
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 15:11:25 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/08/29 08:24:44 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/08/29 08:25:22 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	flagparse(t_flag *flag, char *str, va_list args)
 			if (str[i] == '*')
 			{
 				ast = va_arg(args, int);
-				if (i > 0 && str[i - 1] = '-')
+				if (i > 0 && str[i - 1] == '-')
 				{
 					flag->minus = ast;
 					ast = 0;
