@@ -6,7 +6,7 @@
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 12:20:00 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/08/23 20:20:52 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/08/29 06:36:27 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,23 +89,28 @@ int		ft_printf(const char *format, ...)
 	int		i;
 	int		skip;
 	int		chars;
+	int		find;
 
-	//setlocale(LC_ALL, NULL);
 	va_start(args, format);
 	chars = 0;
 	i = 0;
+	find = 0;
 	while (format[i])
 	{
 		if (format[i] == '%')
 		{
 			skip = findflag(&str, (char*)&format[i]);
 			if (skip)
+			{
 				chars += typeselect(args, str);
+				find = 1;
+			}
 			i += skip;
 		}
-		else if (format[i])
+		if (format[i] && find == 0)
 			chars += ft_putchar_count(format[i]);
 		i++;
+		find = 0;
 	}
 	va_end(args);
 	return (chars);
