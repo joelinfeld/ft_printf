@@ -6,7 +6,7 @@
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 12:20:00 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/08/29 06:49:58 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/08/29 06:52:49 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,9 +118,10 @@ int		ft_printf(const char *format, ...)
 	return (chars);
 }
 
+/*
 int		main(void)
 {
 	ft_printf("%*");
 	return (0);
 }
-
+*/
