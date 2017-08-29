@@ -6,7 +6,7 @@
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 12:19:53 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/08/29 06:50:57 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/08/29 07:48:04 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ typedef struct	s_flag
 	int			isneg;
 	int			wide;
 	int			len;
-	int			ast;
 	char 		c;
 	char		*str;
 	wchar_t		*wstr;
@@ -58,7 +57,7 @@ void			getmod(t_flag *flag, char *str);
 void			flagnew(t_flag *flag);
 int				setflagvalue(int *n, int value, int cur);
 int				setflagminus(t_flag *flag, char *str);
-void			flagparse(t_flag *flag, char *str);
+void			flagparse(t_flag *flag, char *str, va_list args);
 int				handleprecision(t_flag *flag, int len);
 int				rightpad(t_flag flag, int len);
 int				leftpad(t_flag flag, int *len);

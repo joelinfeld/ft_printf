@@ -6,7 +6,7 @@
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 15:11:25 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/08/29 06:51:39 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/08/29 07:53:26 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	flagnew(t_flag *flag)
 	flag->isneg = 0;
 	flag->wide = 0;
 	flag->len = 0;
-	flag->ast = 0;
 }
 
 int		setflagvalue(int *n, int value, int cur)
@@ -54,19 +53,23 @@ int		setflagminus(t_flag *flag, char *str)
 	return (1);
 }
 
-void	flagparse(t_flag *flag, char *str)
+void	flagparse(t_flag *flag, char *str, va_list args)
 {
 	int	i;
 	int cur;
-
+	int ast;
+	
+	ast = 0;
 	cur = 0;
 	i = -1;
 	if (str != NULL)
 	{
 		while (str[++i])
 		{
+			if (str[i] == '*')
+				ast = va_arg(args, int);
 			if (str[i] > '0' && str[i] <= '9' && cur == 0)
-				cur = setflagvalue(&(flag->marg), ft_atoi(&str[i]), 1);
+				cur = setflagvalue(&(flag->marg), (ast) ? ast : ft_atoi(&str[i]), 1);
 			if (str[i] == '+')
 				flag->plus = 1;
 			if (str[i] == '-')
@@ -79,8 +82,6 @@ void	flagparse(t_flag *flag, char *str)
 				flag->space = 1;
 			if (str[i] == '.')
 				cur = setflagvalue(&(flag->precision), ft_atoi(&str[i + 1]), 1);
-			if (str[i] == '*')
-				flag->ast = 1;
 		}
 	}
 }
