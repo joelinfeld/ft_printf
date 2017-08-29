@@ -6,7 +6,7 @@
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 15:11:25 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/08/23 17:13:03 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/08/29 06:51:39 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	flagnew(t_flag *flag)
 	flag->isneg = 0;
 	flag->wide = 0;
 	flag->len = 0;
+	flag->ast = 0;
 }
 
 int		setflagvalue(int *n, int value, int cur)
@@ -78,6 +79,8 @@ void	flagparse(t_flag *flag, char *str)
 				flag->space = 1;
 			if (str[i] == '.')
 				cur = setflagvalue(&(flag->precision), ft_atoi(&str[i + 1]), 1);
+			if (str[i] == '*')
+				flag->ast = 1;
 		}
 	}
 }

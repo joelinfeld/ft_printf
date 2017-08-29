@@ -6,7 +6,7 @@
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 12:19:53 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/08/23 15:44:24 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/08/29 06:50:57 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,12 @@ typedef struct	s_flag
 	int			isneg;
 	int			wide;
 	int			len;
+	int			ast;
 	char 		c;
 	char		*str;
 	wchar_t		*wstr;
 }				t_flag;
+
 char			*di(va_list args, char c, int mod);
 char			*o(va_list args, char c, int mod);
 char			*u(va_list args, char c, int mod);

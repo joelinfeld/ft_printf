@@ -6,7 +6,7 @@
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 12:20:00 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/08/29 06:36:27 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/08/29 06:49:58 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int		typeselect(va_list args, char *str)
 	str[len - 1] = '\0';
 	getformat(&str, &flag);
 	getmod(&flag, str);
+	if (flag.ast)
+		flag.precision = va_arg(args, int);
 	if (flag.c == 'S' || flag.c == 'C' || (flag.c == 's' && flag.mod == 1) || (flag.c == 'c' && flag.mod == 1))
 	{
 		flag.wstr = wconhub(args, flag.c, flag.mod);
@@ -116,10 +118,9 @@ int		ft_printf(const char *format, ...)
 	return (chars);
 }
 
-/*
 int		main(void)
 {
-	ft_printf("%S", L"米");
+	ft_printf("%*");
 	return (0);
 }
-*/
+
