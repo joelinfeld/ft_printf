@@ -6,7 +6,7 @@
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 15:41:13 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/08/29 08:27:42 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/08/29 08:29:34 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,12 @@ int		demprintz(t_flag flag)
 	int chars;
 
 	chars = 0;
+	/*
 	if (!flag.wide && flag.str != NULL && flag.str[0] == '%')
 	{
 		ft_putstr(flag.str);
 	}
+	*/
 	if (flag.wide)
 		len = wprintlen(&flag);
 	else

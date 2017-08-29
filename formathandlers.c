@@ -6,7 +6,7 @@
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 15:15:50 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/08/23 17:15:16 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/08/29 08:31:51 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		leftpad(t_flag flag, int *len)
 		(flag.c == 'd' || flag.c == 'D' || flag.c == 'i'))
 		*len += 1;
 	if (flag.space && *len >= flag.marg && !flag.plus && ft_atoi(flag.str) >= 0
-		&& !(flag.c == 'c' && ft_atoi(flag.str) == 0) && !flag.isneg)
+		&& !(flag.c == 'c' && ft_atoi(flag.str) == 0) && !flag.isneg && flag.str[0] != '%')
 		chars += ft_putchar_count(' ');
 	if (flag.marg)
 		chars += printmarg(flag, *len);
