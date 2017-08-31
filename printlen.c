@@ -27,9 +27,9 @@ int		printlen(t_flag *flag)
 		if (flag->precision != -10000)
 			len = handleprecision(flag, len);
 	}
-	if (flag->str != NULL && flag->octothorpe && ft_atoi(flag->str) != 0)
+	if (flag->str != NULL && flag->octothorpe)
 	{
-		if (flag->c == 'x' || flag->c == 'X')
+		if ((flag->c == 'x' || flag->c == 'X') && ft_atoi(flag->str) != 0)
 			len += 2;
 		if (flag->c == 'o')
 			len += 1;

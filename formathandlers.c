@@ -25,7 +25,7 @@ int		leftpad(t_flag flag, int *len)
 		chars += ft_putchar_count(' ');
 	if (flag.marg)
 		chars += printmarg(flag, *len);
-	if (flag.octothorpe == 1 && ft_atoi(flag.str) != 0)
+	if (flag.octothorpe == 1)
 		printocto(flag);
 	if (flag.c == 'p')
 		printocto(flag);

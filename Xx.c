@@ -33,7 +33,7 @@ char	*x(va_list args, int mod)
 	return (str);
 }
 
-char	*X(va_list args, int mod)
+char	*capx(va_list args, int mod)
 {
 	char	*str;
 

@@ -21,7 +21,7 @@ char	*conhub(va_list args, char c, int mod)
 	else if (ft_strchr("Uu", c))
 		return (u(args, c, mod));
 	else if (c == 'X')
-		return (X(args, mod));
+		return (capx(args, mod));
 	else if (c == 'x')
 		return (x(args, mod));
 	else if (c == 's')

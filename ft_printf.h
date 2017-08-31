@@ -40,7 +40,7 @@ char			*di(va_list args, char c, int mod);
 char			*o(va_list args, char c, int mod);
 char			*u(va_list args, char c, int mod);
 char			*x(va_list args, int mod);
-char			*X(va_list args, int mod);
+char			*capx(va_list args, int mod);
 char			*ch(va_list args, int mod);
 char			*s(va_list args, int mod);
 char			*p(va_list args, int mod);
