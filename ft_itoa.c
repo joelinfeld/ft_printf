@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 static int	digits(intmax_t n)
 {
@@ -34,23 +35,33 @@ static int	digits(intmax_t n)
 
 char		*ft_itoa(intmax_t n)
 {
-	int		dig;
-	char	*res;
+	int			dig;
+	char		*res;
+	uintmax_t	n1;
+	int			neg;
 
-	dig = digits(n);
-	if (!(res = (char *)malloc(sizeof(char) * dig + 1)))
+	neg = n < 0 ? 1 : 0;
+	n1 = n < 0 ? -n : n;
+	dig = digits(n1);
+	if (!(res = (char *)malloc(sizeof(char) * dig + neg + 1)))
 		return (NULL);
-	res[dig] = '\0';
-	if (n < 0)
-	{
-		n *= -1;
+	res[dig + neg] = '\0';
+	if (neg)
 		res[0] = '-';
-	}
-	while (n >= 10)
+	while (n1 >= 10)
 	{
-		res[--dig] = n % 10 + '0';
-		n /= 10;
+		res[--dig + neg] = n1 % 10 + '0';
+		n1 /= 10;
 	}
-	res[--dig] = n + '0';
+	res[--dig + neg] = n1 + '0';
 	return (res);
+}
+
+int		main(void)
+{
+	long long int a = -9223372036854775808;
+	char		*s = ft_itoa(a);
+	printf("%lld\n", a);
+	printf("%s\n", s);
+	return (0);
 }
