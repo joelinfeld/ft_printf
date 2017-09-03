@@ -24,7 +24,7 @@ void	printocto(t_flag flag)
 		ft_putstr("0x");
 	if (flag.c == 'X' && ft_atoi(flag.str) != 0)
 		ft_putstr("0X");
-	if (flag.c == 'o' && (ft_atoi(flag.str) != 0 || flag.precision = 0));
+	if (flag.c == 'o' && (ft_atoi(flag.str) != 0 || flag.precision == 0))
 		ft_putchar('0');
 }
 
