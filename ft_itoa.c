@@ -56,12 +56,3 @@ char		*ft_itoa(intmax_t n)
 	res[--dig + neg] = n1 + '0';
 	return (res);
 }
-
-int		main(void)
-{
-	long long int a = -9223372036854775808;
-	char		*s = ft_itoa(a);
-	printf("%lld\n", a);
-	printf("%s\n", s);
-	return (0);
-}

@@ -21,7 +21,7 @@ char	*di(va_list args, char c, int mod)
 	if (mod == 1 || c == 'D')
 		str = ft_itoa(va_arg(args, long));
 	if (mod == 2)
-		str = ft_itoa(va_arg(args, long long int));
+		str = ft_itoa((intmax_t)va_arg(args, long long int));
 	if (mod == 3)
 		str = ft_itoa((short)va_arg(args, int));
 	if (mod == 4)
