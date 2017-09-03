@@ -20,7 +20,7 @@ int		ft_putchar_count(char c)
 
 void	printocto(t_flag flag)
 {
-	if ((flag.c == 'x' || flag.c == 'p') && ft_atoi(flag.str) != 0)
+	if ((flag.c == 'x' && ft_atoi(flag.str) != 0) || flag.c == 'p')
 		ft_putstr("0x");
 	if (flag.c == 'X' && ft_atoi(flag.str) != 0)
 		ft_putstr("0X");
