@@ -6,7 +6,7 @@
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 14:05:40 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/08/22 18:07:52 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/09/07 11:12:34 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 wchar_t		*ws(va_list args, char c, int mod)
 {
 	wchar_t		*str;
-	
+
 	str = NULL;
 	if ((mod = 1 && c == 's') || (mod == 0 && c == 'S'))
 		str = va_arg(args, wchar_t*);

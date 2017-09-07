@@ -6,7 +6,7 @@
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 12:20:00 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/08/29 07:47:29 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/09/07 12:55:56 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	getformat(char **str, t_flag *flag, va_list args)
 	i = -1;
 	while (str[0][++i])
 	{
-		if (str[0][i] == 'l' || str[0][i] == 'h' || str[0][i] == 'j' || str[0][i] == 'z')
+		if (str[0][i] == 'l' || str[0][i] == 'h'
+			|| str[0][i] == 'j' || str[0][i] == 'z')
 			break ;
 	}
 	flagstr = ft_strdup(*str);
@@ -33,15 +34,14 @@ void	getformat(char **str, t_flag *flag, va_list args)
 int		typeselect(va_list args, char *str)
 {
 	t_flag	flag;
-	int		len;
 
 	flagnew(&flag);
-	len = ft_strlen(str);
-	flag.c = str[len - 1];
-	str[len - 1] = '\0';
+	flag.c = str[ft_strlen(str) - 1];
+	str[ft_strlen(str) - 1] = '\0';
 	getformat(&str, &flag, args);
 	getmod(&flag, str);
-	if (flag.c == 'S' || flag.c == 'C' || (flag.c == 's' && flag.mod == 1) || (flag.c == 'c' && flag.mod == 1))
+	if (flag.c == 'S' || flag.c == 'C' || (flag.c == 's' && flag.mod == 1)
+		|| (flag.c == 'c' && flag.mod == 1))
 	{
 		flag.wstr = wconhub(args, flag.c, flag.mod);
 		flag.wide = 1;
@@ -56,14 +56,16 @@ int		typeselect(va_list args, char *str)
 			flag.isneg = 1;
 		}
 	}
-	return(demprintz(flag));
+	return (demprintz(flag));
 }
 
 int		findflag(char **str, char *format)
 {
 	int		i;
 	char	*cpy;
-	int		find = 0;
+	int		find;
+
+	find = 0;
 	i = 0;
 	while (format[++i])
 	{
@@ -87,39 +89,26 @@ int		ft_printf(const char *format, ...)
 	va_list	args;
 	char	*str;
 	int		i;
-	int		skip;
-	int		chars;
-	int		find;
+	int		meta[2];
 
 	va_start(args, format);
-	chars = 0;
-	i = 0;
-	find = 0;
-	while (format[i])
+	meta[0] = 0;
+	i = -1;
+	while (format[++i])
 	{
+		meta[1] = 0;
 		if (format[i] == '%')
 		{
-			skip = findflag(&str, (char*)&format[i]);
-			if (skip)
+			if (findflag(&str, (char*)&format[i]))
 			{
-				chars += typeselect(args, str);
-				find = 1;
+				meta[0] += typeselect(args, str);
+				meta[1] = 1;
 			}
-			i += skip;
+			i += findflag(&str, (char*)&format[i]);
 		}
-		if (format[i] && find == 0)
-			chars += ft_putchar_count(format[i]);
-		i++;
-		find = 0;
+		if (format[i] && meta[1] == 0)
+			meta[0] += ft_putchar_count(format[i]);
 	}
 	va_end(args);
-	return (chars);
+	return (meta[0]);
 }
-
-/*
-int		main(void)
-{
-	ft_printf("%*");
-	return (0);
-}
-*/
