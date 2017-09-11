@@ -20,6 +20,5 @@ wchar_t		*wc(va_list args, char c, int mod)
 	if ((mod = 1 && c == 'c') || (mod == 0 && c == 'C'))
 		str[0] = va_arg(args, wchar_t);
 	str[1] = L'\0';
-
-	return (str);	
+	return (str);
 }

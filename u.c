@@ -3,6 +3,7 @@
 char	*u(va_list args, char c, int mod)
 {
 	char	*str;
+
 	if (mod == 0 && c != 'U')
 		str = ft_itoa_base(va_arg(args, unsigned int), 10, 1);
 	if (mod == 1 || c == 'U')

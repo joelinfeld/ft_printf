@@ -16,16 +16,16 @@ void	getmod(t_flag *flag, char *str)
 {
 	if (!ft_strlen(str))
 		flag->mod = 0;
-	if	(ft_strequ(str, "l"))
+	if (ft_strequ(str, "l"))
 		flag->mod = 1;
-	if	(ft_strequ(str, "ll"))
+	if (ft_strequ(str, "ll"))
 		flag->mod = 2;
-	if	(ft_strequ(str, "h"))
+	if (ft_strequ(str, "h"))
 		flag->mod = 3;
-	if	(ft_strequ(str, "hh"))
+	if (ft_strequ(str, "hh"))
 		flag->mod = 4;
-	if	(ft_strequ(str, "j"))
-		flag->mod = 5;	
-	if	(ft_strequ(str, "z"))
+	if (ft_strequ(str, "j"))
+		flag->mod = 5;
+	if (ft_strequ(str, "z"))
 		flag->mod = 6;
 }

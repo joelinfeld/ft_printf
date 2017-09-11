@@ -13,19 +13,19 @@
 #include "ft_printf.h"
 #include <stdlib.h>
 
-void	ft_wputstr(wchar_t  *str)
+void	ft_wputstr(wchar_t *str)
 {
 	int	i;
-	
+
 	i = -1;
 	while (str[++i])
-		ft_wputchar(str[i]);	
+		ft_wputchar(str[i]);
 }
 
 void	ft_wputchar(wchar_t c)
 {
 	unsigned int	n;
-	
+
 	n = (unsigned int)c;
 	if (n < (MB_CUR_MAX == 1 ? 255 : 127))
 		ft_putchar(n);
@@ -49,7 +49,7 @@ void	ft_wputchar(wchar_t c)
 	}
 }
 
-int	putflagstr(t_flag flag)
+int		putflagstr(t_flag flag)
 {
 	if (flag.wide)
 	{
@@ -76,19 +76,13 @@ int		demprintz(t_flag flag)
 	int chars;
 
 	chars = 0;
-	/*
-	if (!flag.wide && flag.str != NULL && flag.str[0] == '%')
-	{
-		ft_putstr(flag.str);
-	}
-	*/
 	if (flag.wide)
 		len = wprintlen(&flag);
 	else
 		len = printlen(&flag);
 	chars += len;
 	chars += leftpad(flag, &len);
-	if (!putflagstr(flag)) 
+	if (!putflagstr(flag))
 	{
 		ft_putstr("(null)");
 		chars += 6;

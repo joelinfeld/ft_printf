@@ -35,7 +35,7 @@ int		setflagvalue(int *n, int value, int cur)
 	return (cur);
 }
 
-int		setflagminus(t_flag *flag, char *str)
+int		setflagminus(t_flag *flag,char *str)
 {
 	int i;
 
@@ -52,9 +52,11 @@ int		setflagminus(t_flag *flag, char *str)
 	}
 	return (1);
 }
+
 int		setmarg(t_flag *flag, char *str, int i, int ast)
 {
 	int	cur;
+
 	if (ast)
 	{
 		cur = setflagvalue(&(flag->marg), ast, 1);
@@ -96,7 +98,7 @@ void	flagparsehelp(t_flag *flag, char *str, va_list args, int ast)
 	{
 		if (str[i] == '*')
 			handleast(flag, str, &ast, args);
-		if (((str[i] > '0' && str[i] <= '9') || str[i] == '*')  && cur == 0)
+		if (((str[i] > '0' && str[i] <= '9') || str[i] == '*') && cur == 0)
 			cur = setmarg(flag, str, i, ast);
 		if (str[i] == '+')
 			flag->plus = 1;
@@ -116,7 +118,7 @@ void	flagparsehelp(t_flag *flag, char *str, va_list args, int ast)
 void	flagparse(t_flag *flag, char *str, va_list args)
 {
 	int ast;
-	
+
 	ast = 0;
 	if (str != NULL)
 		flagparsehelp(flag, str, args, ast);

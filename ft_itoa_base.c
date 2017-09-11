@@ -28,15 +28,15 @@ char		*ft_itoa_base(uintmax_t n, int base, int caseflag)
 	int		dig;
 	char	*res;
 	char	sym[16];
-	int i;
-	
+	int 	i;
+
 	i = -1;
 	while (++i < 16)
 	{
 		if (i < 10)
 			sym[i] = '0' + i;
 		else
-			sym[i] = (caseflag ? 'A' + i - 10 : 'a' + i - 10);		
+			sym[i] = (caseflag ? 'A' + i - 10 : 'a' + i - 10);
 	}
 	dig = digits(n, base);
 	if (!(res = ft_strnew(dig)))

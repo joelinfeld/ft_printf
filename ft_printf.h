@@ -31,7 +31,7 @@ typedef struct	s_flag
 	int			isneg;
 	int			wide;
 	int			len;
-	char 		c;
+	char		c;
 	char		*str;
 	wchar_t		*wstr;
 }				t_flag;
@@ -61,11 +61,11 @@ void			flagparse(t_flag *flag, char *str, va_list args);
 int				handleprecision(t_flag *flag, int len);
 int				rightpad(t_flag flag, int len);
 int				leftpad(t_flag flag, int *len);
-void			ft_wputstr(wchar_t  *str);
+void			ft_wputstr(wchar_t *str);
 void			ft_wputchar(wchar_t c);
 int				putflagstr(t_flag flag);
 int				demprintz(t_flag flag);
 int				printlen(t_flag *flag);
 int				wprintlen(t_flag *flag);
 
-#endif 
+#endif

@@ -21,7 +21,8 @@ int		leftpad(t_flag flag, int *len)
 		(flag.c == 'd' || flag.c == 'D' || flag.c == 'i'))
 		*len += 1;
 	if (flag.space && *len >= flag.marg && !flag.plus && ft_atoi(flag.str) >= 0
-		&& !(flag.c == 'c' && ft_atoi(flag.str) == 0) && !flag.isneg && flag.str[0] != '%')
+		&& !(flag.c == 'c' && ft_atoi(flag.str) == 0) 
+			&& !flag.isneg && flag.str[0] != '%')
 		chars += ft_putchar_count(' ');
 	if (flag.marg)
 		chars += printmarg(flag, *len);
