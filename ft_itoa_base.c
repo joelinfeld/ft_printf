@@ -6,7 +6,7 @@
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 16:40:37 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/06/19 16:46:07 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/09/12 13:27:16 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char		*ft_itoa_base(uintmax_t n, int base, int caseflag)
 	int		dig;
 	char	*res;
 	char	sym[16];
-	int 	i;
+	int		i;
 
 	i = -1;
 	while (++i < 16)

@@ -6,12 +6,21 @@
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 12:20:00 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/09/07 12:55:56 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/09/12 20:25:13 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
+
+void	ddelete(char **str)
+{
+	if (*str != NULL)
+	{
+		ft_strclr(*str);
+		ft_strdel(str);
+	}
+}
 
 void	getformat(char **str, t_flag *flag, va_list args)
 {
@@ -29,11 +38,13 @@ void	getformat(char **str, t_flag *flag, va_list args)
 	flagstr[i] = '\0';
 	*str += i;
 	flagparse(flag, flagstr, args);
+	ddelete(&flagstr);
 }
 
 int		typeselect(va_list args, char *str)
 {
 	t_flag	flag;
+	int		chars;
 
 	flagnew(&flag);
 	flag.c = str[ft_strlen(str) - 1];
@@ -56,7 +67,12 @@ int		typeselect(va_list args, char *str)
 			flag.isneg = 1;
 		}
 	}
-	return (demprintz(flag));
+	chars = demprintz(flag);
+	if (flag.edit || (flag.c != 's' && flag.c != '%' && flag.c != 'd'))
+		ddelete(&(flag.str));
+	if (flag.c == 'C')
+		free(flag.wstr);
+	return (chars);
 }
 
 int		findflag(char **str, char *format)
@@ -74,7 +90,7 @@ int		findflag(char **str, char *format)
 			cpy = ft_strdup(format);
 			cpy[i + 1] = '\0';
 			*str = ft_strdup(cpy);
-			ft_strdel(&cpy);
+			ddelete(&cpy);
 			find = 1;
 			break ;
 		}
@@ -94,6 +110,7 @@ int		ft_printf(const char *format, ...)
 	va_start(args, format);
 	meta[0] = 0;
 	i = -1;
+	str = NULL;
 	while (format[++i])
 	{
 		meta[1] = 0;
@@ -110,5 +127,6 @@ int		ft_printf(const char *format, ...)
 			meta[0] += ft_putchar_count(format[i]);
 	}
 	va_end(args);
+	ddelete(&str);
 	return (meta[0]);
 }

@@ -6,7 +6,7 @@
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 15:15:50 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/08/29 08:31:51 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/09/12 20:06:09 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		leftpad(t_flag flag, int *len)
 		(flag.c == 'd' || flag.c == 'D' || flag.c == 'i'))
 		*len += 1;
 	if (flag.space && *len >= flag.marg && !flag.plus && ft_atoi(flag.str) >= 0
-		&& !(flag.c == 'c' && ft_atoi(flag.str) == 0) 
+		&& !(flag.c == 'c' && ft_atoi(flag.str) == 0)
 			&& !flag.isneg && flag.str[0] != '%')
 		chars += ft_putchar_count(' ');
 	if (flag.marg)
@@ -50,35 +50,49 @@ int		rightpad(t_flag flag, int len)
 	return (chars);
 }
 
-int		handleprecision(t_flag *flag, int len)
+void	handleprecisionhelp(t_flag *flag, int *len, char *str, char *str2)
 {
-	int		i;
-	char	*str;
-	char	*str2;
+	int	i;
 
-	i = 0;
+	i = -1;
 	if (flag->precision && flag->c == 's' && flag->str != NULL)
 	{
-		if (flag->precision < len)
+		if (flag->precision < *len)
 		{
 			str = ft_strnew(flag->precision);
 			str = ft_strncpy(str, flag->str, flag->precision);
-			flag->str = str;
+			ft_strclr(flag->str);
+			flag->str = ft_strdup(str);
 			flag->str[flag->precision] = '\0';
-			len = ft_strlen(flag->str);
+			*len = ft_strlen(flag->str);
+			flag->edit = 1;
 		}
 	}
-	if (flag->precision > len && flag->c != 's'
+	if (flag->precision > *len && flag->c != 's'
 		&& flag->c != 'c' && flag->str != NULL)
 	{
 		i = -1;
-		str = ft_strnew(flag->precision - len);
-		while (++i < flag->precision - len)
+		str = ft_strnew(flag->precision - *len);
+		while (++i < flag->precision - *len)
 			str[i] = '0';
 		str2 = ft_strjoin(str, flag->str);
-		flag->str = str2;
-		len = ft_strlen(flag->str);
+		ft_strclr(flag->str);
+		flag->str = ft_strdup(str2);
+			*len = ft_strlen(flag->str);
+		flag->edit = 1;
 	}
+	ddelete(&str2);
+	ddelete(&str);
+}
+
+int		handleprecision(t_flag *flag, int len)
+{
+	char	*str;
+	char	*str2;
+
+	str = NULL;
+	str2 = NULL;
+	handleprecisionhelp(flag, &len, str, str2);
 	if (flag->precision < len && flag->c != 's'
 		&& flag->c != 'c' && flag->str != NULL)
 	{

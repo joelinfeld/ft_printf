@@ -6,29 +6,18 @@
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 16:40:37 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/06/20 15:01:03 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/09/12 16:40:54 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-static int	digits(intmax_t n)
+static int	digits(uintmax_t n)
 {
 	int	dig;
 
-	dig = 0;
-	if (n < 0)
-	{
-		n *= -1;
-		dig++;
-	}
-	while (n >= 10)
-	{
-		n /= 10;
-		dig++;
-	}
-	if (n < 10)
+	dig = 1;
+	while (n /= 10)
 		dig++;
 	return (dig);
 }
@@ -48,11 +37,11 @@ char		*ft_itoa(intmax_t n)
 	res[dig + neg] = '\0';
 	if (neg)
 		res[0] = '-';
-	while (n1 >= 10)
+	while (dig)
 	{
-		res[--dig + neg] = n1 % 10 + '0';
+		res[dig + neg - 1] = '0' + n1 % 10;
 		n1 /= 10;
+		dig--;
 	}
-	res[--dig + neg] = n1 + '0';
 	return (res);
 }

@@ -6,7 +6,7 @@
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 15:41:13 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/08/29 08:29:34 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/09/12 19:32:25 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		putflagstr(t_flag flag)
 			ft_wputstr(flag.wstr);
 		return (1);
 	}
-	else if(flag.str != NULL)
+	else if (flag.str != NULL)
 	{
 		if (flag.c == 'c')
 			ft_putchar(*flag.str);

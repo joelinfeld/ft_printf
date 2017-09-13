@@ -6,7 +6,7 @@
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 12:19:53 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/09/07 13:42:38 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/09/12 20:02:39 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct	s_flag
 	int			isneg;
 	int			wide;
 	int			len;
+	int			edit;
 	char		c;
 	char		*str;
 	wchar_t		*wstr;
@@ -67,5 +68,6 @@ int				putflagstr(t_flag flag);
 int				demprintz(t_flag flag);
 int				printlen(t_flag *flag);
 int				wprintlen(t_flag *flag);
-
+int				ft_printf(const char *format, ...);
+void			ddelete(char **str);
 #endif

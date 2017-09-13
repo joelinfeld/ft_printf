@@ -6,7 +6,7 @@
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 15:43:38 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/08/23 17:13:49 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/09/12 13:31:02 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int		wprintlen(t_flag *flag)
 	len = 0;
 	if (flag->wstr != NULL)
 		while (flag->wstr[++i])
+		{
+		}
 	len = i;
 	return (len);
 }
