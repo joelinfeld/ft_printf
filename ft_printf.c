@@ -17,7 +17,7 @@ void	ddelete(char **str)
 {
 	if (*str != NULL)
 	{
-		ft_strclr(*str);
+		//ft_strclr(*str);
 		ft_strdel(str);
 	}
 }
