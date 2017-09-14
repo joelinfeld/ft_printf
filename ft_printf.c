@@ -38,7 +38,7 @@ void	getformat(char **str, t_flag *flag, va_list args)
 	flagstr[i] = '\0';
 	*str += i;
 	flagparse(flag, flagstr, args);
-	ddelete(&flagstr);
+	//ddelete(&flagstr);
 }
 
 int		typeselect(va_list args, char *str)
