@@ -69,14 +69,14 @@ void	handleprecisionhelp(t_flag *flag, int *len, char *str, char *str2)
 		}
 	}
 	if (flag->precision > *len && flag->c != 's'
-		&& flag->c != 'c' && flag->str != NULL)
+		&& flag->c != 'c' && flag->str != NULL && flag->c != '%')
 	{
 		i = -1;
 		str = ft_strnew(flag->precision - *len);
 		while (++i < flag->precision - *len)
 			str[i] = '0';
 		str2 = ft_strjoin(str, flag->str);
-		ft_strclr(flag->str);
+		ft_strdel(&(flag->str));
 		flag->str = ft_strdup(str2);
 			*len = ft_strlen(flag->str);
 		flag->edit = 1;
@@ -94,7 +94,7 @@ int		handleprecision(t_flag *flag, int len)
 	str2 = NULL;
 	handleprecisionhelp(flag, &len, str, str2);
 	if (flag->precision < len && flag->c != 's'
-		&& flag->c != 'c' && flag->str != NULL)
+		&& flag->c != 'c' && flag->str != NULL && flag->c != '%')
 	{
 		if (flag->str[0] == '0')
 		{
