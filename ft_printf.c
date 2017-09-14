@@ -73,7 +73,7 @@ int		typeselect(va_list args, char *str)
 	}
 		chars = demprintz(flag);
 	if (flag.str && (flag.edit || (flag.c != 's' && flag.c != '%')))
-		ddelete(&(flag.str));
+		//ddelete(&(flag.str));
 	if (flag.c == 'C')
 		free(flag.wstr);
 	return (chars);
@@ -94,7 +94,7 @@ int		findflag(char **str, char *format)
 			cpy = ft_strdup(format);
 			cpy[i + 1] = '\0';
 			*str = ft_strdup(cpy);
-			ddelete(&cpy);
+			//ddelete(&cpy);
 			find = 1;
 			break ;
 		}
@@ -132,6 +132,6 @@ int		ft_printf(const char *format, ...)
 			meta[0] += ft_putchar_count(format[i]);
 	}
 	va_end(args);
-	ddelete(&str);
+	//ddelete(&str);
 	return (meta[0]);
 }
