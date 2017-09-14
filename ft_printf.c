@@ -45,6 +45,7 @@ int		typeselect(va_list args, char *str)
 {
 	t_flag	flag;
 	int		chars;
+	char	*cpy;
 
 	flagnew(&flag);
 	flag.c = str[ft_strlen(str) - 1];
@@ -63,12 +64,15 @@ int		typeselect(va_list args, char *str)
 	{
 		if (flag.str && flag.str[0] == '-')
 		{
-			++flag.str;
+			cpy = ft_strdup(&(flag.str[1]));
+			ddelete(&flag.str);
+			flag.str = ft_strdup(cpy);
+			ddelete(&cpy);
 			flag.isneg = 1;
 		}
 	}
-	chars = demprintz(flag);
-	if (flag.edit || (flag.c != 's' && flag.c != '%' && flag.c != 'd'))
+		chars = demprintz(flag);
+	if (flag.edit || (flag.c != 's' && flag.c != '%'))
 		ddelete(&(flag.str));
 	if (flag.c == 'C')
 		free(flag.wstr);
@@ -82,7 +86,7 @@ int		findflag(char **str, char *format)
 	int		find;
 
 	find = 0;
-	i = 0;
+	i = -1;
 	while (format[++i])
 	{
 		if (ft_strchr("SspdiouxXcDOUxC%", format[i]))
@@ -96,8 +100,8 @@ int		findflag(char **str, char *format)
 		}
 	}
 	if (!find)
-		i = 0;
-	return (i);
+		return (0);
+	return (i + 1);
 }
 
 int		ft_printf(const char *format, ...)
@@ -105,10 +109,11 @@ int		ft_printf(const char *format, ...)
 	va_list	args;
 	char	*str;
 	int		i;
-	int		meta[2];
+	int		meta[3];
 
 	va_start(args, format);
 	meta[0] = 0;
+	meta[2] = 0;
 	i = -1;
 	str = NULL;
 	while (format[++i])
@@ -116,12 +121,12 @@ int		ft_printf(const char *format, ...)
 		meta[1] = 0;
 		if (format[i] == '%')
 		{
-			if (findflag(&str, (char*)&format[i]))
+			if ((meta[2] = findflag(&str, (char*)&format[i + 1])))
 			{
 				meta[0] += typeselect(args, str);
 				meta[1] = 1;
 			}
-			i += findflag(&str, (char*)&format[i]);
+			i += meta[2];
 		}
 		if (format[i] && meta[1] == 0)
 			meta[0] += ft_putchar_count(format[i]);
