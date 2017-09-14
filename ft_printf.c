@@ -86,7 +86,7 @@ int		findflag(char **str, char *format)
 	int		find;
 
 	find = 0;
-	i = -1;
+	i = 0;
 	while (format[++i])
 	{
 		if (ft_strchr("SspdiouxXcDOUxC%", format[i]))
@@ -101,7 +101,7 @@ int		findflag(char **str, char *format)
 	}
 	if (!find)
 		return (0);
-	return (i + 1);
+	return (i);
 }
 
 int		ft_printf(const char *format, ...)
@@ -121,7 +121,7 @@ int		ft_printf(const char *format, ...)
 		meta[1] = 0;
 		if (format[i] == '%')
 		{
-			if ((meta[2] = findflag(&str, (char*)&format[i + 1])))
+			if ((meta[2] = findflag(&str, (char*)&format[i])))
 			{
 				meta[0] += typeselect(args, str);
 				meta[1] = 1;
