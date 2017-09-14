@@ -76,7 +76,7 @@ void	handleprecisionhelp(t_flag *flag, int *len, char *str, char *str2)
 		while (++i < flag->precision - *len)
 			str[i] = '0';
 		str2 = ft_strjoin(str, flag->str);
-		ddelete(&(flag->str));
+		//ddelete(&(flag->str));
 		flag->str = ft_strdup(str2);
 			*len = ft_strlen(flag->str);
 		flag->edit = 1;
