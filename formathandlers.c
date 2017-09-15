@@ -61,7 +61,7 @@ void	handleprecisionhelp(t_flag *flag, int *len, char *str, char *str2)
 		{
 			str = ft_strnew(flag->precision);
 			str = ft_strncpy(str, flag->str, flag->precision);
-		//	ft_strclr(flag->str);
+			ddelete(&(flag->str));
 			flag->str = ft_strdup(str);
 			flag->str[flag->precision] = '\0';
 			*len = ft_strlen(flag->str);
