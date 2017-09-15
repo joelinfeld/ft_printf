@@ -22,7 +22,7 @@ char	*u(va_list args, char c, int mod)
 		str = ft_itoa_base(va_arg(args, unsigned long int), 10, 1);
 	if (mod == 2)
 		str = ft_itoa_base(va_arg(args, unsigned long long int), 10, 1);
-	if (mod == 3)// && str == NULL)
+	if (mod == 3 && c != 'U')
 		str = ft_itoa_base((unsigned short)va_arg(args, unsigned int), 10, 1);
 	if (mod == 4)
 		str = ft_itoa_base((unsigned char)va_arg(args, unsigned int), 10, 1);
