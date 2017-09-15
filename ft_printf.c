@@ -65,9 +65,9 @@ int		typeselect(va_list args, char *str)
 		if (flag.str && flag.str[0] == '-')
 		{
 			cpy = ft_strdup(&(flag.str[1]));
-			//ddelete(&flag.str);
+			ddelete(&flag.str);
 			flag.str = ft_strdup(cpy);
-			//ddelete(&cpy);
+			ddelete(&cpy);
 			flag.isneg = 1;
 		}
 	}
