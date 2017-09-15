@@ -60,8 +60,8 @@ void	handleprecisionhelp(t_flag *flag, int *len, char *str, char *str2)
 		if (flag->precision < *len)
 		{
 			str = ft_strndup(flag->str, flag->precision);
-			if(flag->str)
-				ft_strclr(flag->str);
+			//if(flag->str)
+			//	ft_strclr(flag->str);
 			flag->str = ft_strdup(str);
 			flag->str[flag->precision] = '\0';
 			*len = ft_strlen(flag->str);
