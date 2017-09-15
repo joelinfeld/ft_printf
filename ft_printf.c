@@ -74,7 +74,7 @@ int		typeselect(va_list args, char *str)
 		chars = demprintz(flag);
 	//if (flag.str && ((flag.c != 's' && flag.c != '%' && flag.c != 'd')))
 	//	ddelete(&(flag.str));
-	if (flag.edit)
+	if (flag.edit || flag.c == 'd')
 		ddelete(&(flag.str));
 	if (flag.c == 'C')
 		free(flag.wstr);
