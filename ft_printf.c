@@ -94,7 +94,7 @@ int		findflag(char **str, char *format)
 			cpy = ft_strdup(format);
 			cpy[i + 1] = '\0';
 			*str = ft_strdup(cpy);
-			//ddelete(&cpy);
+			ddelete(&cpy);
 			find = 1;
 			break ;
 		}
