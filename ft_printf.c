@@ -132,6 +132,6 @@ int		ft_printf(const char *format, ...)
 			meta[0] += ft_putchar_count(format[i]);
 	}
 	va_end(args);
-	//ddelete(&str);
+	ddelete(&str);
 	return (meta[0]);
 }
