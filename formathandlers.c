@@ -79,8 +79,8 @@ void	handleprecisionhelp(t_flag *flag, int *len, char *str, char *str2)
 		*len = ft_strlen(flag->str);
 		flag->edit = 1;
 	}
-	//ddelete(&str2);
-	//ddelete(&str);
+	ddelete(&str2);
+	ddelete(&str);
 }
 
 int		handleprecision(t_flag *flag, int len)
