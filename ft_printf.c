@@ -6,7 +6,7 @@
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 12:20:00 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/09/12 20:25:13 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/09/19 14:57:55 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ int		findflag(char **str, char *format)
 		{
 			cpy = ft_strdup(format);
 			cpy[i + 1] = '\0';
+			if(*str)
+				ft_strdel(str);
 			*str = ft_strdup(cpy);
 			ddelete(&cpy);
 			find = 1;
