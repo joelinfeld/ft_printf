@@ -6,13 +6,13 @@
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 15:15:50 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/09/12 20:06:09 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/09/19 16:23:17 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		leftpad(t_flag flag, int *len)
+int			leftpad(t_flag flag, int *len)
 {
 	int	chars;
 
@@ -40,7 +40,7 @@ int		leftpad(t_flag flag, int *len)
 	return (chars);
 }
 
-int		rightpad(t_flag flag, int len)
+int			rightpad(t_flag flag, int len)
 {
 	int	chars;
 
@@ -50,22 +50,25 @@ int		rightpad(t_flag flag, int len)
 	return (chars);
 }
 
-void	handleprecisionhelp(t_flag *flag, int *len, char *str, char *str2)
+static void	handleprecisionhelp2(t_flag *flag, int *len, char *str)
+{
+	if (flag->precision < *len)
+	{
+		str = ft_strndup(flag->str, flag->precision);
+		flag->str = ft_strdup(str);
+		*len = ft_strlen(flag->str);
+		flag->edit = 1;
+	}
+	ddelete(&str);
+}
+
+static void	handleprecisionhelp(t_flag *flag, int *len, char *str, char *str2)
 {
 	int	i;
 
 	i = -1;
 	if (flag->precision && flag->c == 's' && flag->str != NULL)
-	{
-		if (flag->precision < *len)
-		{
-			str = ft_strndup(flag->str, flag->precision);
-			flag->str = ft_strdup(str);
-			flag->str[flag->precision] = '\0';
-			*len = ft_strlen(flag->str);
-			flag->edit = 1;
-		}
-	}
+		handleprecisionhelp2(flag, len, str);
 	if (flag->precision > *len && flag->c != 's'
 		&& flag->c != 'c' && flag->str != NULL)
 	{
@@ -83,7 +86,7 @@ void	handleprecisionhelp(t_flag *flag, int *len, char *str, char *str2)
 	ddelete(&str);
 }
 
-int		handleprecision(t_flag *flag, int len)
+int			handleprecision(t_flag *flag, int len)
 {
 	char	*str;
 	char	*str2;

@@ -6,23 +6,13 @@
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 15:41:13 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/09/12 19:32:25 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/09/19 16:22:07 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdlib.h>
 
-void	ft_wputstr(wchar_t *str)
-{
-	int	i;
-
-	i = -1;
-	while (str[++i])
-		ft_wputchar(str[i]);
-}
-
-void	ft_wputchar(wchar_t c)
+static void		ft_wputchar(wchar_t c)
 {
 	unsigned int	n;
 
@@ -49,7 +39,16 @@ void	ft_wputchar(wchar_t c)
 	}
 }
 
-int		putflagstr(t_flag flag)
+static void		ft_wputstr(wchar_t *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+		ft_wputchar(str[i]);
+}
+
+static int		putflagstr(t_flag flag)
 {
 	if (flag.wide)
 	{
@@ -70,7 +69,7 @@ int		putflagstr(t_flag flag)
 	return (0);
 }
 
-int		demprintz(t_flag flag)
+int				demprintz(t_flag flag)
 {
 	int len;
 	int chars;

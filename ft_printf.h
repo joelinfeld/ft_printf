@@ -6,7 +6,7 @@
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 12:19:53 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/09/12 20:02:39 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/09/19 16:20:39 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,15 @@ wchar_t			*wconhub(va_list args, char c, int mod);
 void			getmod(t_flag *flag, char *str);
 void			flagnew(t_flag *flag);
 int				setflagvalue(int *n, int value, int cur);
-int				setflagminus(t_flag *flag, char *str);
 void			flagparse(t_flag *flag, char *str, va_list args);
 int				handleprecision(t_flag *flag, int len);
 int				rightpad(t_flag flag, int len);
 int				leftpad(t_flag flag, int *len);
-void			ft_wputstr(wchar_t *str);
-void			ft_wputchar(wchar_t c);
-int				putflagstr(t_flag flag);
 int				demprintz(t_flag flag);
 int				printlen(t_flag *flag);
 int				wprintlen(t_flag *flag);
 int				ft_printf(const char *format, ...);
 void			ddelete(char **str);
+void			getformat(char **str, t_flag *flag, va_list args);
+
 #endif

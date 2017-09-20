@@ -6,13 +6,13 @@
 /*   By: jinfeld <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 15:11:25 by jinfeld           #+#    #+#             */
-/*   Updated: 2017/09/12 13:25:52 by jinfeld          ###   ########.fr       */
+/*   Updated: 2017/09/19 16:23:32 by jinfeld          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		setflagminus(t_flag *flag, char *str)
+static int		setflagminus(t_flag *flag, char *str)
 {
 	int i;
 
@@ -30,7 +30,7 @@ int		setflagminus(t_flag *flag, char *str)
 	return (1);
 }
 
-int		setmarg(t_flag *flag, char *str, int i, int ast)
+static int		setmarg(t_flag *flag, char *str, int i, int ast)
 {
 	int	cur;
 
@@ -44,7 +44,7 @@ int		setmarg(t_flag *flag, char *str, int i, int ast)
 	return (cur);
 }
 
-void	handleast(t_flag *flag, char *str, int *ast, va_list args)
+static void		handleast(t_flag *flag, char *str, int *ast, va_list args)
 {
 	int	i;
 
@@ -64,7 +64,7 @@ void	handleast(t_flag *flag, char *str, int *ast, va_list args)
 	}
 }
 
-void	flagparsehelp(t_flag *flag, char *str, va_list args, int ast)
+static void		flagparsehelp(t_flag *flag, char *str, va_list args, int ast)
 {
 	int	i;
 	int	cur;
@@ -92,7 +92,7 @@ void	flagparsehelp(t_flag *flag, char *str, va_list args, int ast)
 	}
 }
 
-void	flagparse(t_flag *flag, char *str, va_list args)
+void			flagparse(t_flag *flag, char *str, va_list args)
 {
 	int ast;
 
